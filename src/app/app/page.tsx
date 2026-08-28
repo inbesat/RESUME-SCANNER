@@ -36,7 +36,6 @@ import { SkillSimulator } from '@/components/SkillSimulator';
 import { ATSChecker } from '@/components/ATSChecker';
 import { SamplePresets } from '@/components/SamplePresets';
 import { ShareableReportCard } from '@/components/ShareableReportCard';
-import { AppGuide } from '@/components/AppGuide';
 import ThemeToggle from '@/components/ThemeToggle';
 import { cn, parseApiResponse } from '@/lib/utils/helpers';
 import { triggerConfetti, playAudioFeedback } from '@/lib/utils/effects';
@@ -295,14 +294,14 @@ export default function AppPage() {
               </button>
             </div>
 
-            <a
-              href="#guide"
+            <Link
+              href="/guide"
               className="flex items-center gap-1.5 rounded-lg border border-border/80 bg-card/60 px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:border-primary/40 hover:text-foreground transition-colors"
               title="Feature Guide & Screenshots"
             >
               <BookOpen className="h-3.5 w-3.5 text-primary" />
               <span className="hidden sm:inline">Guide &amp; Tips</span>
-            </a>
+            </Link>
 
             <ThemeToggle />
           </div>
@@ -565,11 +564,6 @@ export default function AppPage() {
             )}
           </div>
         )}
-
-        {/* Complete Feature Guide & Screenshots Section */}
-        <div className="pt-8 border-t border-border/60">
-          <AppGuide />
-        </div>
       </main>
     </div>
   );

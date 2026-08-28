@@ -90,15 +90,19 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await expect(page.locator('text=up to 20 files')).toBeVisible();
   });
 
-  test('User Guide section and header navigation', async ({ page }) => {
+  test('Dedicated /guide page and header navigation', async ({ page }) => {
     await page.goto('/app');
 
     // Click Guide button in top header
-    const guideBtn = page.locator('a[href="#guide"]').first();
+    const guideBtn = page.locator('a[href="/guide"]').first();
     await expect(guideBtn).toBeVisible();
     await guideBtn.click();
 
-    // Verify Guide section is present
+    // Verify URL is /guide
+    await expect(page).toHaveURL(/\/guide/);
+
+    // Verify Guide page headline and components
+    await expect(page.locator('h1')).toContainText('User Guide & Feature Masterclass');
     await expect(page.locator('text=Complete User Guide & Feature Masterclass')).toBeVisible();
     await expect(page.locator('text=10 Feature Guides')).toBeVisible();
 
@@ -109,11 +113,16 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     // Verify AI Bullet Point Optimizer guide card is visible
     await expect(page.locator('text=AI Bullet Point Optimizer (XYZ Formula)')).toBeVisible();
 
-    // Expand the guide card if not already expanded
+    // Expand the guide card
     const optimizerCard = page.locator('text=AI Bullet Point Optimizer (XYZ Formula)');
     await optimizerCard.click();
 
     // Verify UI screenshot preview is displayed
     await expect(page.locator('text=Formula: Accomplished [X], measured by [Y], by doing [Z]').first()).toBeVisible();
+
+    // Click Launch App CTA in header to navigate back to /app
+    const launchAppBtn = page.locator('a:has-text("Launch App")').first();
+    await launchAppBtn.click();
+    await expect(page).toHaveURL(/\/app/);
   });
 });
