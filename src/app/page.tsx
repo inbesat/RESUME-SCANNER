@@ -118,6 +118,7 @@ export default function LandingPage() {
             <a href="#parsing">Features</a>
             <a href="#bias">Fairness</a>
             <a href="#stack">Stack</a>
+            <Link href="/app#guide">📖 Guide &amp; Tips</Link>
           </div>
           <Link href="/app" className="nav-cta">Get your fit score →</Link>
         </div>
@@ -133,7 +134,7 @@ export default function LandingPage() {
           </p>
           <div className="hero-actions">
             <Link href="/app" className="btn btn-primary">Score a resume <ArrowRight className="h-3.5 w-3.5" /></Link>
-            <a href="#pipeline" className="btn btn-ghost">See the pipeline ↓</a>
+            <Link href="/app#guide" className="btn btn-ghost">📖 Feature Guide &amp; Screenshots</Link>
           </div>
           <div className="hero-stats">
             <div className="hstat"><div className="n"><span className="u">40</span>/<span className="u">60</span></div><div className="l">local / AI blend</div></div>

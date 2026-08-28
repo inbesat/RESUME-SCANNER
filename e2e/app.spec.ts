@@ -24,7 +24,7 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await page.goto('/app');
 
     // Verify 1-Click Presets banner exists
-    await expect(page.locator('text=Instant 1-Click Demo Presets')).toBeVisible();
+    await expect(page.locator('text=Instant 1-Click Demo Presets').first()).toBeVisible();
 
     // Click the "Senior Frontend Engineer" preset
     const frontendPreset = page.locator('button:has-text("Senior Frontend Engineer")').first();
@@ -52,27 +52,27 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     const simulatorTab = page.locator('button[role="tab"]:has-text("Skill Simulator")');
     await expect(simulatorTab).toBeVisible();
     await simulatorTab.click();
-    await expect(page.locator('text=What-If Skill Simulator')).toBeVisible();
+    await expect(page.locator('text=What-If Skill Simulator').first()).toBeVisible();
     await expect(page.locator('text=Simulated Fit')).toBeVisible();
 
     // Test 3: Bullet Optimizer Tab
     const bulletTab = page.locator('button[role="tab"]:has-text("Bullet Optimizer")');
     await expect(bulletTab).toBeVisible();
     await bulletTab.click();
-    await expect(page.locator('text=AI Bullet Point Optimizer')).toBeVisible();
-    await expect(page.locator('text=XYZ Formula')).toBeVisible();
+    await expect(page.locator('text=AI Bullet Point Optimizer').first()).toBeVisible();
+    await expect(page.locator('text=XYZ Formula').first()).toBeVisible();
 
     // Test 4: Interview Prep Tab
     const interviewTab = page.locator('button[role="tab"]:has-text("Interview Prep")');
     await expect(interviewTab).toBeVisible();
     await interviewTab.click();
-    await expect(page.locator('text=Interview Question Predictor')).toBeVisible();
+    await expect(page.locator('text=Interview Question Predictor').first()).toBeVisible();
 
     // Test 5: Outreach / DM Tab
     const outreachTab = page.locator('button[role="tab"]:has-text("Outreach / DM")');
     await expect(outreachTab).toBeVisible();
     await outreachTab.click();
-    await expect(page.locator('text=1-Click Cover Letter & Recruiter Outreach')).toBeVisible();
+    await expect(page.locator('text=1-Click Cover Letter & Recruiter Outreach').first()).toBeVisible();
 
     // Test 6: Shareable Report Card
     await expect(page.locator('text=Shareable Fit Score Card')).toBeVisible();
@@ -88,5 +88,32 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await expect(page.locator('h1')).toContainText('Rank candidates against one job');
     await expect(page.locator('text=Drop resumes here or click to browse')).toBeVisible();
     await expect(page.locator('text=up to 20 files')).toBeVisible();
+  });
+
+  test('User Guide section and header navigation', async ({ page }) => {
+    await page.goto('/app');
+
+    // Click Guide button in top header
+    const guideBtn = page.locator('a[href="#guide"]').first();
+    await expect(guideBtn).toBeVisible();
+    await guideBtn.click();
+
+    // Verify Guide section is present
+    await expect(page.locator('text=Complete User Guide & Feature Masterclass')).toBeVisible();
+    await expect(page.locator('text=10 Feature Guides')).toBeVisible();
+
+    // Filter by AI Superpowers
+    const superpowersFilter = page.locator('button:has-text("AI Superpowers")');
+    await superpowersFilter.click();
+
+    // Verify AI Bullet Point Optimizer guide card is visible
+    await expect(page.locator('text=AI Bullet Point Optimizer (XYZ Formula)')).toBeVisible();
+
+    // Expand the guide card if not already expanded
+    const optimizerCard = page.locator('text=AI Bullet Point Optimizer (XYZ Formula)');
+    await optimizerCard.click();
+
+    // Verify UI screenshot preview is displayed
+    await expect(page.locator('text=Formula: Accomplished [X], measured by [Y], by doing [Z]').first()).toBeVisible();
   });
 });
