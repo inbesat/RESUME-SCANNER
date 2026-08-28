@@ -21,6 +21,8 @@ import {
   ChevronUp,
   Search,
   Zap,
+  Flame,
+  DollarSign,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -45,6 +47,82 @@ interface GuideFeature {
 }
 
 const GUIDE_FEATURES: GuideFeature[] = [
+  {
+    id: 'fixer',
+    category: 'superpowers',
+    icon: Sparkles,
+    title: '1-Click Magic Resume Auto-Fixer & Canvas',
+    badge: 'Flagship AI Tool',
+    summary: 'Rewrites and transforms your existing resume into a 95%+ ATS-optimized document by injecting missing keywords into Google XYZ bullets, eliminating weak verbs, and rendering an editable paper canvas.',
+    steps: [
+      'Click the "✨ Auto-Fixer" tab in the Copilot Suite.',
+      'Click "✨ Auto-Fix My Resume" to generate a tailored 95%+ fit resume.',
+      'Switch between the Interactive Document Canvas, Before/After Diff, and Audit Changelog.',
+      'Toggle between Harvard ATS, Silicon Valley Tech, and Executive templates, and click "Print / Save PDF" or "TXT".',
+    ],
+    proTip: 'Use the "Edit Text" toggle to fine-tune company names or specific metrics directly on the paper canvas before printing!',
+    mockup: {
+      type: 'bullet',
+      previewTitle: 'Projected Score Jump: 64% → 96% (+32% Boost)',
+      previewDetails: [
+        '🏛️ Harvard ATS Template • 100% Injected Missing Keywords',
+        'Spearheaded the migration of core services to Docker & AWS, reducing p99 latency by 42% and cutting infrastructure spend by $120K annually (Google XYZ Formula).',
+        'Architected automated CI/CD pipelines with Kubernetes & Prometheus, accelerating deployment velocity 4x daily.',
+      ],
+      previewBadges: ['96% Fit', '+32% Boost', 'Top 5% Tier', '100% ATS Indexable'],
+    },
+  },
+  {
+    id: 'roast',
+    category: 'superpowers',
+    icon: Flame,
+    title: 'Brutal Recruiter Roast & Mentor Feedback',
+    badge: 'Viral Superpower',
+    summary: 'Experience a savage, hilarious FAANG recruiter critique that exposes cliché buzzwords, lack of numbers, and passive verbs—or switch to an encouraging Career Mentor with 1-click solutions.',
+    steps: [
+      'Click the "🔥 Recruiter Roast" tab in the Copilot Suite.',
+      'Toggle between "🔥 Savage Roast" and "🤝 Career Mentor".',
+      'Review your 6-Second Survival Score, Red Flags, and Buzzword Crime Scene.',
+      'Click "Auto-Fix These Issues in 1-Click" to jump straight into the Auto-Fixer.',
+    ],
+    proTip: 'Share your roast score on X or LinkedIn using the 1-click share button to showcase your resume transformation!',
+    mockup: {
+      type: 'bullet',
+      previewTitle: 'Survival Score: 24% (Instant Shredder)',
+      previewDetails: [
+        '🔥 Headline: "Reads like a job description you copied from HR. Where are the numbers?"',
+        '🚨 Buzzword Crime: "Responsible for various tasks" → Fix with: "Spearheaded / Architected"',
+        '👁️ 6-Second Glance: "Lots of tech names, zero business proof. Next candidate!"',
+      ],
+      previewBadges: ['24% Survival', '3 Buzzword Crimes', 'Instant Shredder'],
+    },
+  },
+  {
+    id: 'salary',
+    category: 'superpowers',
+    icon: DollarSign,
+    title: 'Skill Salary & Market Value Estimator',
+    badge: 'ROI Weapon',
+    summary: 'Calculates your estimated 2026 market compensation band, regional salary benchmarks (USD, INR, EUR, GBP), and ranks missing skills by their exact dollar salary boost.',
+    steps: [
+      'Click the "💰 Salary ROI" tab in the Copilot Suite.',
+      'Select your target currency (USD $, INR ₹, EUR €, GBP £).',
+      'View your Seniority Tier, Median Salary, and Regional Compensation Benchmarks.',
+      'Check the "Missing Skill Dollar ROI" leaderboard to see which skills unlock +$10k–$15k annual pay increases.',
+      'Copy customized Salary Negotiation Talking Points for recruiter compensation calls.',
+    ],
+    proTip: 'Use the "Auto-Fix Resume to Unlock This Range" button to inject the highest-paying skills into your resume immediately!',
+    mockup: {
+      type: 'bullet',
+      previewTitle: 'Market Value: $168,000 / yr median ($148k - $205k)',
+      previewDetails: [
+        '📈 +AWS: +$14,500/yr (+8.6% Salary Boost) - Very High Demand',
+        '📈 +Kubernetes: +$13,800/yr (+8.2% Salary Boost) - Very High Demand',
+        '🌐 Benchmarks: US Remote ($148k-$205k) • SF/NYC ($175k-$246k) • Bangalore (₹32L-₹49L)',
+      ],
+      previewBadges: ['$168k Median', 'Top 10% Tier', '+$14.5k AWS Boost'],
+    },
+  },
   {
     id: 'presets',
     category: 'scoring',

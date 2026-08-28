@@ -20,6 +20,8 @@ import {
   Sliders,
   ShieldCheck,
   BookOpen,
+  Flame,
+  DollarSign,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -34,6 +36,9 @@ import { InterviewPredictor } from '@/components/InterviewPredictor';
 import { CoverLetterGenerator } from '@/components/CoverLetterGenerator';
 import { SkillSimulator } from '@/components/SkillSimulator';
 import { ATSChecker } from '@/components/ATSChecker';
+import { ResumeFixer } from '@/components/ResumeFixer';
+import { RecruiterRoast } from '@/components/RecruiterRoast';
+import { SalaryEstimator } from '@/components/SalaryEstimator';
 import { SamplePresets } from '@/components/SamplePresets';
 import { ShareableReportCard } from '@/components/ShareableReportCard';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -91,7 +96,7 @@ export default function AppPage() {
   const [isScoring, setIsScoring] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activePresetId, setActivePresetId] = useState<string | null>(null);
-  const [activeCopilotTab, setActiveCopilotTab] = useState<'optimizer' | 'simulator' | 'ats' | 'interview' | 'outreach' | 'bias'>('optimizer');
+  const [activeCopilotTab, setActiveCopilotTab] = useState<'fixer' | 'roast' | 'salary' | 'optimizer' | 'simulator' | 'ats' | 'interview' | 'outreach' | 'bias'>('fixer');
 
   const errorBannerRef = useRef<HTMLDivElement>(null);
   const errorSeenRef = useRef(false);
@@ -477,7 +482,19 @@ export default function AppPage() {
 
                 <Tabs value={activeCopilotTab} onValueChange={(v) => setActiveCopilotTab(v as typeof activeCopilotTab)} className="w-full">
                   <div className="overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
-                    <TabsList className="flex w-max sm:w-full sm:grid sm:grid-cols-3 lg:grid-cols-6 max-w-4xl gap-1">
+                    <TabsList className="flex w-max sm:w-full sm:grid sm:grid-cols-3 lg:grid-cols-9 max-w-7xl gap-1">
+                      <TabsTrigger value="fixer" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink bg-primary/10 border border-primary/25 text-primary font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                        <Sparkles className="h-3.5 w-3.5" />
+                        ✨ Auto-Fixer
+                      </TabsTrigger>
+                      <TabsTrigger value="roast" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink bg-destructive/10 border border-destructive/25 text-destructive font-semibold data-[state=active]:bg-destructive data-[state=active]:text-destructive-foreground">
+                        <Flame className="h-3.5 w-3.5" />
+                        🔥 Recruiter Roast
+                      </TabsTrigger>
+                      <TabsTrigger value="salary" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink bg-success/10 border border-success/25 text-success font-semibold data-[state=active]:bg-success data-[state=active]:text-success-foreground">
+                        <DollarSign className="h-3.5 w-3.5" />
+                        💰 Salary ROI
+                      </TabsTrigger>
                       <TabsTrigger value="optimizer" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
                         <Wand2 className="h-3.5 w-3.5" />
                         Bullet Optimizer
@@ -504,6 +521,31 @@ export default function AppPage() {
                       </TabsTrigger>
                     </TabsList>
                   </div>
+
+                  <TabsContent value="fixer" className="mt-4">
+                    <ResumeFixer
+                      resumeText={resume.text}
+                      jobDescription={jobDescription}
+                      missingKeywords={missingKeywordsList}
+                      currentScore={scoreResult?.fitPercentage || 65}
+                    />
+                  </TabsContent>
+
+                  <TabsContent value="roast" className="mt-4">
+                    <RecruiterRoast
+                      resumeText={resume.text}
+                      jobDescription={jobDescription}
+                    />
+                  </TabsContent>
+
+                  <TabsContent value="salary" className="mt-4">
+                    <SalaryEstimator
+                      resumeText={resume.text}
+                      jobDescription={jobDescription}
+                      matchedKeywords={matchedKeywordsList}
+                      missingKeywords={missingKeywordsList}
+                    />
+                  </TabsContent>
 
                   <TabsContent value="optimizer" className="mt-4">
                     <BulletOptimizer

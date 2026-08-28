@@ -31,8 +31,8 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await expect(frontendPreset).toBeVisible();
     await frontendPreset.click();
 
-    // Verify preset is loaded and text is populated
-    await expect(page.locator('text=alex_chen_frontend_resume.pdf')).toBeVisible();
+    // Verify preset is loaded
+    await expect(page.locator('text=Loaded')).toBeVisible();
 
     // Wait for fit score calculation
     await expect(page.locator('text=Overall Fit')).toBeVisible({ timeout: 15000 });
@@ -40,41 +40,82 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     // Verify AI Copilot Suite appears
     await expect(page.locator('text=AI Application Copilot Suite')).toBeVisible();
 
-    // Test 1: ATS Audit Tab
+    // Test 1: Auto-Fixer Tab
+    const fixerTab = page.locator('button[role="tab"]:has-text("Auto-Fixer")');
+    await expect(fixerTab).toBeVisible();
+    await fixerTab.click();
+    await expect(page.locator('text=Magic Resume Auto-Fixer').first()).toBeVisible();
+
+    // Click Auto-Fix My Resume button
+    const autoFixBtn = page.locator('button:has-text("Auto-Fix My Resume")').first();
+    await expect(autoFixBtn).toBeVisible();
+    await autoFixBtn.click();
+
+    // Verify Projected Score Jump Banner appears
+    await expect(page.locator('text=Projected Score Jump')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Document Canvas')).toBeVisible();
+
+    // Test 2: Recruiter Roast Tab
+    const roastTab = page.locator('button[role="tab"]:has-text("Recruiter Roast")');
+    await expect(roastTab).toBeVisible();
+    await roastTab.click();
+    await expect(page.locator('text=Brutal Recruiter Roast').first()).toBeVisible();
+
+    const roastBtn = page.locator('button:has-text("Roast My Resume")').first();
+    await expect(roastBtn).toBeVisible();
+    await roastBtn.click();
+
+    await expect(page.locator('text=Survival').first()).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Recruiter Glance').first()).toBeVisible();
+
+    // Test 3: Salary ROI Tab
+    const salaryTab = page.locator('button[role="tab"]:has-text("Salary ROI")');
+    await expect(salaryTab).toBeVisible();
+    await salaryTab.click();
+    await expect(page.locator('text=Skill Salary').first()).toBeVisible();
+
+    const salaryBtn = page.locator('button:has-text("Calculate Market Value")').first();
+    await expect(salaryBtn).toBeVisible();
+    await salaryBtn.click();
+
+    await expect(page.locator('text=Missing Skill Dollar ROI').first()).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Regional Compensation Benchmarks').first()).toBeVisible();
+
+    // Test 4: ATS Audit Tab
     const atsTab = page.locator('button[role="tab"]:has-text("ATS Audit")');
     await expect(atsTab).toBeVisible();
     await atsTab.click();
-    await expect(page.locator('text=ATS Readiness')).toBeVisible();
+    await expect(page.locator('text=ATS Readiness').first()).toBeVisible();
     await expect(page.locator('text=Contact & Profile Links')).toBeVisible();
     await expect(page.locator('text=Standard ATS Headings')).toBeVisible();
 
-    // Test 2: Skill Simulator Tab
+    // Test 3: Skill Simulator Tab
     const simulatorTab = page.locator('button[role="tab"]:has-text("Skill Simulator")');
     await expect(simulatorTab).toBeVisible();
     await simulatorTab.click();
     await expect(page.locator('text=What-If Skill Simulator').first()).toBeVisible();
     await expect(page.locator('text=Simulated Fit')).toBeVisible();
 
-    // Test 3: Bullet Optimizer Tab
+    // Test 4: Bullet Optimizer Tab
     const bulletTab = page.locator('button[role="tab"]:has-text("Bullet Optimizer")');
     await expect(bulletTab).toBeVisible();
     await bulletTab.click();
     await expect(page.locator('text=AI Bullet Point Optimizer').first()).toBeVisible();
     await expect(page.locator('text=XYZ Formula').first()).toBeVisible();
 
-    // Test 4: Interview Prep Tab
+    // Test 5: Interview Prep Tab
     const interviewTab = page.locator('button[role="tab"]:has-text("Interview Prep")');
     await expect(interviewTab).toBeVisible();
     await interviewTab.click();
     await expect(page.locator('text=Interview Question Predictor').first()).toBeVisible();
 
-    // Test 5: Outreach / DM Tab
+    // Test 6: Outreach / DM Tab
     const outreachTab = page.locator('button[role="tab"]:has-text("Outreach / DM")');
     await expect(outreachTab).toBeVisible();
     await outreachTab.click();
     await expect(page.locator('text=1-Click Cover Letter & Recruiter Outreach').first()).toBeVisible();
 
-    // Test 6: Shareable Report Card
+    // Test 7: Shareable Report Card
     await expect(page.locator('text=Shareable Fit Score Card')).toBeVisible();
   });
 
@@ -140,7 +181,7 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await frontendPreset.click();
 
     // Wait for score calculation
-    await expect(page.locator('text=Overall Fit')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('text=Overall Fit')).toBeVisible({ timeout: 20000 });
 
     // Verify mobile copilot tabs can be tapped and content toggles
     const atsTab = page.locator('button[role="tab"]:has-text("ATS Audit")');

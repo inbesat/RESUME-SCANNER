@@ -112,3 +112,119 @@ export interface OutreachResult {
   followUpEmail: string;
   keyStrengthsUsed: string[];
 }
+
+export interface FixedResumeExperience {
+  role: string;
+  company: string;
+  location?: string;
+  period: string;
+  bullets: string[];
+}
+
+export interface FixedResumeEducation {
+  degree: string;
+  institution: string;
+  location?: string;
+  year: string;
+  details?: string;
+}
+
+export interface FixedResumeSkills {
+  technical: string[];
+  toolsAndCloud: string[];
+  domainAndSoft: string[];
+}
+
+export interface FixedResumeData {
+  fullName: string;
+  title: string;
+  email: string;
+  phone: string;
+  location: string;
+  links: string[];
+  summary: string;
+  skills: FixedResumeSkills;
+  experience: FixedResumeExperience[];
+  education: FixedResumeEducation[];
+  certifications?: string[];
+  changesApplied: string[];
+  estimatedScoreJump: {
+    originalScore: number;
+    projectedScore: number;
+    delta: number;
+  };
+  modelUsed?: string;
+}
+
+export interface ResumeFixerRequest {
+  resumeText: string;
+  jobDescription: string;
+  missingKeywords: string[];
+  targetScore?: number;
+  provider?: 'huggingface' | 'groq' | 'auto';
+}
+
+export interface BuzzwordCrime {
+  buzzword: string;
+  sentence: string;
+  roast: string;
+  replacement: string;
+}
+
+export interface SavageCritique {
+  category: string;
+  critique: string;
+  roastQuote: string;
+  fix: string;
+}
+
+export interface RecruiterRoastResult {
+  roastMode: 'roast' | 'mentor';
+  roastScore: number; // 0 - 100 Survival / Impression score
+  survivalTier: 'Instant Shredder' | 'Phone Screen Gamble' | 'Strong Contender' | 'FAANG Onsite Ready';
+  roastHeadline: string;
+  firstImpressionIn6Seconds: string;
+  redFlags: string[];
+  savageTakeaways: SavageCritique[];
+  buzzwordCrimes: BuzzwordCrime[];
+  verdict: string;
+  shareablePunchline: string;
+  modelUsed?: string;
+}
+
+export interface MissingSkillRoi {
+  skill: string;
+  estimatedAnnualBoost: number;
+  boostPercentage: number;
+  demandLevel: 'Very High' | 'High' | 'Moderate';
+}
+
+export interface MatchedSkillValue {
+  skill: string;
+  salaryContribution: number;
+  percentile: string;
+}
+
+export interface RegionalBenchmark {
+  region: string;
+  rangeText: string;
+  flag: string;
+}
+
+export interface SkillSalaryEstimate {
+  roleTitle: string;
+  seniorityLevel: 'Junior' | 'Mid-Level' | 'Senior' | 'Staff / Lead' | 'Principal / Director';
+  yearsOfExperienceEstimated: number;
+  estimatedSalaryRange: {
+    min: number;
+    median: number;
+    max: number;
+    currency: string;
+  };
+  marketTier: 'Top 10% High-Scale SaaS' | 'Top 25% Enterprise' | 'Competitive Market Average';
+  missingSkillRoi: MissingSkillRoi[];
+  topValueSkillsMatched: MatchedSkillValue[];
+  negotiationPoints: string[];
+  regionalBenchmarks: RegionalBenchmark[];
+  modelUsed?: string;
+}

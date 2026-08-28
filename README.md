@@ -6,7 +6,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38bdf8?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Groq Llama 3.3](https://img.shields.io/badge/AI_Inference-Groq_Llama_3.3_70B-orange?style=for-the-badge&logo=groq)](https://groq.com/)
-[![Vitest](https://img.shields.io/badge/Unit_Tests-20%2F20_Passing-brightgreen?style=for-the-badge&logo=vitest)](https://vitest.dev/)
+[![Hugging Face](https://img.shields.io/badge/Hugging_Face-Llama_3.3_Inference-yellow?style=for-the-badge&logo=huggingface)](https://huggingface.co/)
+[![Vitest](https://img.shields.io/badge/Unit_Tests-24%2F24_Passing-brightgreen?style=for-the-badge&logo=vitest)](https://vitest.dev/)
 [![Playwright](https://img.shields.io/badge/E2E_Tests-Playwright_Passing-success?style=for-the-badge&logo=playwright)](https://playwright.dev/)
 
 ---
@@ -28,41 +29,49 @@
                     ┌─────────────────────────────────┼────────────────────────────────┐
                     ▼                                 ▼                                ▼
        [ 📊 Hybrid Fit Scoring ]           [ ⚡ AI Application Copilot ]     [ 👥 Recruiter Mode ]
-       • 40% Local TF-IDF Vector           • Google XYZ Bullet Optimizer     • 20-Candidate Batch Ranking
-       • 60% Groq AI Semantic Blend        • Real-Time Skill Simulator       • Sub-Second Local / Deep AI
-       • Verified Evidence Quotes          • ATS Formatting Audit (Grade A+) • Candidate Leaderboard
-       • Required vs Preferred Weights     • STAR Interview Predictor        • 1-Click CSV ATS Export
-       • 0-PII Demographic Bias Audit      • 1-Click Cover Letter & DM       • 1-Click Sample Role Presets
+       • 40% Local TF-IDF Vector           • ✨ 1-Click Magic Resume Fixer   • 20-Candidate Batch Ranking
+       • 60% Groq/HF Semantic Blend        • 🔥 Brutal FAANG Recruiter Roast • Sub-Second Local / Deep AI
+       • Verified Evidence Quotes          • 💰 Skill Salary ROI Estimator   • Candidate Leaderboard
+       • Required vs Preferred Weights     • Google XYZ Bullet Optimizer     • 1-Click CSV ATS Export
+       • 0-PII Demographic Bias Audit      • Real-Time Skill Simulator       • 1-Click Sample Role Presets
 ```
 
-### 1. 📊 Hybrid Multi-Layer Scoring Engine (40/60 Blend)
-- Blends deterministic **TF-IDF cosine similarity (40%)** with **Groq AI semantic reasoning (60%)** to eliminate hallucinations while providing verbatim evidence quotes for every score point.
+### 1. ✨ 1-Click Magic Resume Auto-Fixer & Interactive Canvas
+- Automatically injects missing keywords into **Google XYZ formula** bullets, eliminates weak phrasing, and rewrites the resume into a **95%+ ATS-optimized document**.
+- **Interactive A4 / Letter Document Canvas**: Switch between **🏛️ Harvard Classic ATS**, **💻 Modern Tech**, and **👔 Executive Leadership** templates.
+- **Inline Editing & Diff View**: Edit text directly on the canvas, inspect a side-by-side Before/After diff, and export to **Vector ATS PDF**, **TXT**, or copy to clipboard.
+
+### 2. 🔥 Brutal FAANG Recruiter Roast & Career Mentor Mode
+- **🔥 Savage Roast Mode**: Delivers an unvarnished, hilarious critique from the perspective of a FAANG recruiter who has screened 50,000 resumes at Google, Meta, and Netflix.
+- **🚨 Buzzword Crime Scene**: Flags cliché filler phrases (*"responsible for"*, *"team player"*, *"passionate"*) with hilarious reactions and authoritative power-verb replacements.
+- **🤝 Encouraging Career Mentor Mode**: Warm, highly strategic coaching highlighting key candidate strengths with step-by-step polish.
+- **📱 Viral Social Share Card**: 1-click formatted sharing to X/Twitter and LinkedIn.
+
+### 3. 💰 Skill Salary & Compensation Value Estimator
+- Computes estimated **2026 market salary bands** and median compensation for the target role and seniority tier.
+- **Missing Skill Dollar ROI**: Ranks missing skills by their exact annual salary boost (e.g. *+AWS: +$14,500/yr*, *+Kubernetes: +$13,800/yr*).
+- **Multi-Currency Support**: Switch between **USD ($)**, **INR (₹ Lakhs)**, **EUR (€)**, and **GBP (£)**.
+- **Regional Benchmarks & Negotiation Talking Points**: Data-backed talking points for recruiter compensation reviews.
+
+### 4. 📊 Hybrid Multi-Layer Scoring Engine (40/60 Blend)
+- Blends deterministic **TF-IDF cosine similarity (40%)** with **AI semantic reasoning (60%)** to eliminate hallucinations while providing verbatim evidence quotes for every score point.
 - Automatically categorizes keywords into **Technical Skills**, **Experience**, **Education**, and **Soft Skills**, weighing required vs. preferred criteria.
 
-### 2. ⚡ AI Bullet Point Optimizer (Google's XYZ Formula)
-- Automatically detects missing skills from the job description and generates 3 quantifiable, high-impact bullet point variations following Google's proven structure:  
+### 5. ⚡ AI Bullet Point Optimizer (Google's XYZ Formula)
+- Generates 3 quantifiable, high-impact bullet point variations following Google's proven structure:  
   $$\text{Accomplished } [X], \text{ as measured by } [Y], \text{ by doing } [Z]$$
-- Includes metric breakdown tags, impact highlights, and 1-click copy.
 
-### 3. 🧪 Real-Time "What-If" Skill Simulator
+### 6. 🧪 Real-Time "What-If" Skill Simulator
 - Interactive checkboxes allow candidates to toggle missing skills on/off and watch their simulated fit score update in real-time.
-- Automatically computes and ranks **"Highest ROI Skills"** to show which competencies yield the largest score jumps into the top 10% candidate tier.
 
-### 4. 🛡️ ATS Format & Readability Audit
-- Automated 5-point parser audit evaluating:
-  1. **Contact Completeness** (Email, phone with area code, location, LinkedIn/GitHub links).
-  2. **Standard Section Headings** (Work Experience, Skills, Education, Summary).
-  3. **Measurable Metric Density** (ensures >40% of bullet points contain concrete numbers and results).
-  4. **Action Verb Strength** (identifies strong power verbs and flags passive phrases like *"responsible for"*).
-  5. **ATS Readiness Score & Grade** ($A+, A, B, C, D$) with fix suggestions.
+### 7. 🛡️ ATS Format & Readability Audit
+- Automated 5-point parser audit evaluating contact completeness, standard headings, metric density, and action verb strength with $A+$ grading.
 
-### 5. 🎯 Interview Question Predictor & STAR Cheat Sheet
-- Analyzes candidate strengths and gaps to anticipate the **top 5 hardest interview questions** across Technical Depth, System Architecture, Gap Probing, and Leadership.
-- Provides a structured **STAR Method cheat sheet** (*Situation, Task, Action, Result*) and model talking points for each question.
+### 8. 🎯 Interview Question Predictor & STAR Cheat Sheet
+- Analyzes candidate strengths and gaps to anticipate the **top 5 hardest interview questions** with structured STAR answers.
 
-### 6. ✉️ 1-Click Cover Letter & Recruiter Outreach Package
-- Generates a tailored 3-paragraph Cover Letter leading with top matched competencies.
-- Produces a **<120-word LinkedIn Recruiter Cold DM** optimized for maximum response rates.
+### 9. ✉️ 1-Click Cover Letter & Recruiter Outreach Package
+- Generates a tailored 3-paragraph Cover Letter and a **<120-word LinkedIn Recruiter Cold DM**.
 - Includes a ready-to-send **5-day post-application follow-up email** template with live editable textareas.
 
 ### 7. 🚀 1-Click Sample Role Presets (Instant Demo)
