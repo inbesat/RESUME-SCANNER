@@ -28,12 +28,10 @@ import {
   X,
   ChevronRight,
   ArrowLeft,
-  LayoutDashboard,
-  Zap
+  LayoutDashboard
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ResumeUploader } from '@/components/ResumeUploader';
 import { JobDescriptionInput } from '@/components/JobDescriptionInput';
 import { ScoreDisplay } from '@/components/ScoreDisplay';
@@ -114,6 +112,29 @@ export default function AppPage() {
   const errorBannerRef = useRef<HTMLDivElement>(null);
   const errorSeenRef = useRef(false);
   const requestIdRef = useRef(0);
+
+  // Body scroll lock when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = ''; };
+    }
+  }, [isMobileMenuOpen]);
+
+  // Escape key to close mobile drawer + Ctrl+B to toggle sidebar
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+      if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        setIsSidebarOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   const scoreResume = useCallback(async () => {
     if (!resume || keywords.length === 0) return;
@@ -338,7 +359,7 @@ export default function AppPage() {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background relative">
+    <div className="flex h-dvh overflow-hidden bg-background relative">
       {/* VisionOS Ambient Glow Auroras */}
       <div className="ambient-glow-orange -top-24 -left-24" />
       <div className="ambient-glow-cyan -bottom-24 -right-24" />
@@ -505,7 +526,7 @@ export default function AppPage() {
       {/* ============================================================ */}
       {/* 2. MAIN APP CANVAS & STICKY HEADER                            */}
       {/* ============================================================ */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col h-dvh overflow-hidden">
         {/* Top Sticky Header */}
         <header className="h-16 border-b border-border/80 glass-panel glass-specular px-4 sm:px-6 flex items-center justify-between gap-4 z-20 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
@@ -513,7 +534,7 @@ export default function AppPage() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden h-9 w-9 rounded-lg border border-border/70 flex items-center justify-center text-muted-foreground hover:text-foreground"
+              className="lg:hidden h-10 w-10 rounded-lg border border-border/70 flex items-center justify-center text-muted-foreground hover:text-foreground"
               aria-label="Open navigation menu"
             >
               <Menu className="h-5 w-5" />
@@ -524,7 +545,7 @@ export default function AppPage() {
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-[#ff5f42] font-mono text-xs font-bold text-primary-foreground shadow-xs">
                 AI
               </span>
-              <span className="font-mono text-xs font-bold tracking-tight">
+              <span className="font-mono text-xs font-bold tracking-tight hidden sm:inline">
                 RESUME_SCREENER
               </span>
             </Link>
@@ -558,10 +579,10 @@ export default function AppPage() {
               <button
                 type="button"
                 onClick={() => setActiveSection('overview')}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border border-border/70 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/40 transition-colors"
               >
                 <ArrowLeft className="h-3.5 w-3.5" />
-                Score Overview
+                <span className="hidden sm:inline">Score Overview</span>
               </button>
             )}
 
@@ -587,10 +608,10 @@ export default function AppPage() {
                 className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive"
               >
                 <span className="mt-0.5 flex-shrink-0">⚠</span>
-                <span>{error}</span>
+                <span className="min-w-0 break-words">{error}</span>
                 <button
                   onClick={() => setError(null)}
-                  className="ml-auto flex-shrink-0 rounded px-1 hover:bg-destructive/10"
+                  className="ml-auto flex-shrink-0 rounded p-2 hover:bg-destructive/10"
                   aria-label="Dismiss error"
                 >
                   ✕
@@ -957,15 +978,16 @@ export default function AppPage() {
       {/* 3. MOBILE SLIDE-OUT DRAWER / MENU                             */}
       {/* ============================================================ */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden flex">
+        <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true" aria-label="Navigation Menu">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
           />
 
           {/* Drawer Content */}
-          <div className="relative w-4/5 max-w-sm bg-card border-r border-border h-full flex flex-col z-50 p-4 shadow-2xl space-y-4">
+          <div className="relative w-4/5 max-w-sm bg-card border-r border-border h-full flex flex-col z-50 p-4 shadow-2xl space-y-4 animate-in slide-in-from-left duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-border/80">
               <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary font-mono text-xs font-bold text-primary-foreground">
@@ -976,7 +998,8 @@ export default function AppPage() {
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="h-8 w-8 rounded-lg border border-border/70 flex items-center justify-center text-muted-foreground"
+                className="h-10 w-10 rounded-lg border border-border/70 flex items-center justify-center text-muted-foreground hover:text-foreground"
+                aria-label="Close navigation menu"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1012,34 +1035,55 @@ export default function AppPage() {
 
             {/* Nav list */}
             <div className="flex-1 overflow-y-auto space-y-1">
-              {NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeSection === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveSection(item.id);
-                      setIsMobileMenuOpen(false);
-                      playAudioFeedback('click');
-                    }}
-                    className={cn(
-                      'w-full flex items-center justify-between p-2.5 rounded-xl text-xs text-left transition-all',
-                      isActive ? 'bg-primary text-primary-foreground font-semibold' : 'text-muted-foreground hover:bg-muted/40'
-                    )}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4" />
-                      <span>{item.label}</span>
+              {mode === 'seeker' ? (
+                NAV_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeSection === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setActiveSection(item.id);
+                        setIsMobileMenuOpen(false);
+                        playAudioFeedback('click');
+                      }}
+                      className={cn(
+                        'w-full flex items-center justify-between p-2.5 rounded-xl text-xs text-left transition-all',
+                        isActive ? 'bg-primary text-primary-foreground font-semibold' : 'text-muted-foreground hover:bg-muted/40'
+                      )}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Icon className="h-4 w-4" />
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-current shrink-0 ml-1">
+                          {item.badge}
+                        </Badge>
+                      )}
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="p-2 space-y-2 text-xs text-muted-foreground">
+                  <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                    Recruiter Suite
+                  </div>
+                  <div className="p-3 rounded-xl border border-border/70 bg-card/60 space-y-1">
+                    <div className="font-semibold text-foreground flex items-center gap-1.5">
+                      <Users className="h-4 w-4 text-primary" />
+                      <span>20-Candidate Batch</span>
                     </div>
-                    {item.badge && (
-                      <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-current">
-                        {item.badge}
-                      </Badge>
-                    )}
-                  </button>
-                );
-              })}
+                    <p className="text-[11px] text-muted-foreground">
+                      Upload multiple resumes and rank them instantly on a live leaderboard.
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl border border-primary/20 bg-primary/5 text-primary text-[11px] font-medium flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    <span>Coming soon for Enterprise</span>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Footer */}

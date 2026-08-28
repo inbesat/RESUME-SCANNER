@@ -14,9 +14,7 @@ import {
   Users,
   FileDown,
   CheckCircle2,
-  ArrowRight,
   HelpCircle,
-  X,
   ChevronDown,
   ChevronUp,
   Search,
@@ -24,10 +22,9 @@ import {
   Flame,
   DollarSign,
   PanelLeftClose,
-  Layout,
   Layers,
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/helpers';
@@ -468,7 +465,7 @@ export function AppGuide() {
 
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 text-xs px-3 py-1.5 font-mono">
-              10 Feature Guides
+              {GUIDE_FEATURES.length} Feature Guides
             </Badge>
           </div>
         </div>
@@ -480,7 +477,7 @@ export function AppGuide() {
               size="sm"
               variant={activeCategory === 'all' ? 'default' : 'outline'}
               onClick={() => setActiveCategory('all')}
-              className="text-xs h-8"
+              className="text-xs h-10 sm:h-8"
             >
               All Features ({GUIDE_FEATURES.length})
             </Button>
@@ -488,7 +485,7 @@ export function AppGuide() {
               size="sm"
               variant={activeCategory === 'scoring' ? 'default' : 'outline'}
               onClick={() => setActiveCategory('scoring')}
-              className="text-xs h-8 gap-1"
+              className="text-xs h-10 sm:h-8 gap-1"
             >
               <Gauge className="h-3 w-3" /> Scoring &amp; ATS
             </Button>
@@ -496,7 +493,7 @@ export function AppGuide() {
               size="sm"
               variant={activeCategory === 'superpowers' ? 'default' : 'outline'}
               onClick={() => setActiveCategory('superpowers')}
-              className="text-xs h-8 gap-1"
+              className="text-xs h-10 sm:h-8 gap-1"
             >
               <Sparkles className="h-3 w-3" /> AI Superpowers
             </Button>
@@ -504,7 +501,7 @@ export function AppGuide() {
               size="sm"
               variant={activeCategory === 'outreach' ? 'default' : 'outline'}
               onClick={() => setActiveCategory('outreach')}
-              className="text-xs h-8 gap-1"
+              className="text-xs h-10 sm:h-8 gap-1"
             >
               <Mail className="h-3 w-3" /> Outreach &amp; Prep
             </Button>
@@ -512,7 +509,7 @@ export function AppGuide() {
               size="sm"
               variant={activeCategory === 'recruiter' ? 'default' : 'outline'}
               onClick={() => setActiveCategory('recruiter')}
-              className="text-xs h-8 gap-1"
+              className="text-xs h-10 sm:h-8 gap-1"
             >
               <Users className="h-3 w-3" /> Recruiter Mode
             </Button>
@@ -522,10 +519,11 @@ export function AppGuide() {
             <Search className="h-3.5 w-3.5 absolute left-3 top-2.5 text-muted-foreground" />
             <input
               type="text"
+              aria-label="Search features"
               placeholder="Search features (e.g. ATS, bullets)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-border bg-card/80 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pl-8 pr-3 py-2.5 sm:py-1.5 text-xs rounded-lg border border-border bg-card/80 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         </div>
@@ -555,7 +553,7 @@ export function AppGuide() {
                   </span>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-mono text-muted-foreground">0{index + 1}.</span>
+                      <span className="text-xs font-mono text-muted-foreground">{String(index + 1).padStart(2, '0')}.</span>
                       <h3 className="text-base sm:text-lg font-bold font-display text-foreground">
                         {feature.title}
                       </h3>
@@ -639,7 +637,7 @@ export function AppGuide() {
                         {feature.mockup.previewDetails.map((line, lIdx) => (
                           <div
                             key={lIdx}
-                            className="p-2.5 rounded-lg border border-border/60 bg-card/70 text-xs text-foreground/90 font-mono leading-relaxed"
+                            className="p-2.5 rounded-lg border border-border/60 bg-card/70 text-xs text-foreground/90 font-mono leading-relaxed break-all"
                           >
                             {line}
                           </div>

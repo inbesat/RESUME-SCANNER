@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Sparkles, BookOpen, Terminal } from 'lucide-react';
+import { ArrowRight, Sparkles, Terminal } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AppGuide } from '@/components/AppGuide';
@@ -30,7 +30,7 @@ export default function GuidePage() {
           <div className="flex items-center gap-2.5">
             <Link
               href="/app"
-              className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2.5 sm:py-1.5 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
             >
               <span>Launch App</span>
               <ArrowRight className="h-3.5 w-3.5" />

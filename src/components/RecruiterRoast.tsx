@@ -12,12 +12,6 @@ import {
   Check,
   Loader2,
   Trophy,
-  HelpCircle,
-  TrendingDown,
-  Quote,
-  ShieldAlert,
-  ArrowRight,
-  RefreshCw,
   Eye,
   CheckCircle2
 } from 'lucide-react';
@@ -103,7 +97,9 @@ ${data.firstImpressionIn6Seconds}
 Top Flags:
 ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
 
-    navigator.clipboard.writeText(text);
+    try {
+      navigator.clipboard.writeText(text).catch(() => {});
+    } catch { /* ignore */ }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -150,7 +146,7 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                 type="button"
                 onClick={() => handleModeChange('roast')}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all',
+                  'flex items-center gap-1.5 py-2.5 px-3.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-xs font-semibold transition-all',
                   mode === 'roast'
                     ? 'bg-destructive text-destructive-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
@@ -163,7 +159,7 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                 type="button"
                 onClick={() => handleModeChange('mentor')}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all',
+                  'flex items-center gap-1.5 py-2.5 px-3.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-xs font-semibold transition-all',
                   mode === 'mentor'
                     ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
@@ -257,7 +253,7 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                       size="sm"
                       variant="outline"
                       onClick={handleShareTwitter}
-                      className="h-8 text-xs gap-1.5 border-border/80 hover:text-primary hover:border-primary/50"
+                      className="h-10 sm:h-8 text-xs gap-1.5 border-border/80 hover:text-primary hover:border-primary/50"
                     >
                       <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -269,7 +265,7 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                       size="sm"
                       variant="ghost"
                       onClick={handleCopySummary}
-                      className="h-8 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
+                      className="h-10 sm:h-8 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
                     >
                       {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
                       {copied ? 'Copied' : 'Copy Roast'}
@@ -296,9 +292,9 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                 <AlertTriangle className="h-4 w-4 text-warning" />
                 {mode === 'roast' ? 'Top Red Flags & Immediate Disqualifiers' : 'Key Areas for Strategic Polish'}
               </h4>
-              <div className="grid gap-2 sm:grid-cols-3">
+              <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {data.redFlags.map((flag, idx) => (
-                  <div key={idx} className="p-3 rounded-lg border border-border/60 bg-muted/30 text-xs text-foreground/90 flex items-start gap-2">
+                  <div key={`flag-${idx}`} className="p-3 rounded-lg border border-border/60 bg-muted/30 text-xs text-foreground/90 flex items-start gap-2">
                     <span className="text-destructive font-bold">✕</span>
                     <span className="leading-snug">{flag}</span>
                   </div>
@@ -351,9 +347,9 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                 Category Deep-Dive &amp; Actionable Solutions
               </h4>
 
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {data.savageTakeaways.map((item, idx) => (
-                  <div key={idx} className="rounded-xl border border-border/80 bg-card/60 p-4 space-y-2.5 flex flex-col justify-between">
+                  <div key={item.category} className="p-3.5 rounded-xl border border-border/70 bg-card flex flex-col justify-between gap-3">
                     <div className="space-y-2">
                       <Badge variant="outline" className="text-[10px] text-primary border-primary/30 font-semibold">
                         {item.category}

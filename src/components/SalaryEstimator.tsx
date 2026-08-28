@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   DollarSign,
   TrendingUp,
-  Award,
   Globe,
   MessageSquare,
   Sparkles,
@@ -12,9 +11,6 @@ import {
   Check,
   Loader2,
   AlertCircle,
-  Briefcase,
-  Layers,
-  ArrowRight,
   Zap
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -266,7 +262,7 @@ export function SalaryEstimator({
               <div className="grid gap-2.5 sm:grid-cols-2">
                 {data.missingSkillRoi.map((item, idx) => (
                   <div
-                    key={idx}
+                    key={item.skill}
                     className="p-3.5 rounded-xl border border-border/70 bg-card/80 flex items-center justify-between gap-3 hover:border-success/40 transition-colors"
                   >
                     <div className="space-y-1 min-w-0">
@@ -309,9 +305,9 @@ export function SalaryEstimator({
                 <Globe className="h-4 w-4 text-primary" />
                 Regional Compensation Benchmarks
               </h4>
-              <div className="grid gap-2.5 sm:grid-cols-4">
+              <div className="grid gap-2.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 {data.regionalBenchmarks.map((b, idx) => (
-                  <div key={idx} className="p-3 rounded-lg border border-border/60 bg-muted/30 space-y-1">
+                  <div key={b.region} className="p-3 rounded-lg border border-border/60 bg-muted/30 space-y-1">
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <span>{b.flag}</span>
                       <span className="truncate">{b.region}</span>
@@ -322,31 +318,36 @@ export function SalaryEstimator({
               </div>
             </div>
 
-            {/* Negotiation Ammunition (Talking Points) */}
+            {/* Negotiation Script / Talking Points */}
             <div className="rounded-xl border border-border/80 bg-card/60 p-5 space-y-3">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-primary" />
-                  Salary Negotiation Talking Points (For Recruiter Calls)
-                </h4>
-                <span className="text-[11px] text-muted-foreground font-mono">Click to copy</span>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <MessageSquare className="h-4 w-4 text-primary" />
+                    How to Negotiate This
+                  </h4>
+                  <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+                    Tap any point to copy to clipboard for recruiter emails or calls.
+                  </p>
+                </div>
               </div>
 
               <div className="space-y-2">
                 {data.negotiationPoints.map((point, idx) => (
-                  <div
-                    key={idx}
+                  <button
+                    key={`point-${idx}`}
+                    type="button"
                     onClick={() => handleCopyNegotiation(point, idx)}
-                    className="p-3 rounded-xl border border-border/70 bg-card/70 flex items-start justify-between gap-3 cursor-pointer hover:border-primary/50 transition-colors group"
+                    className="w-full text-left p-3 rounded-xl border border-border/70 bg-card/70 flex items-start justify-between gap-3 cursor-pointer hover:border-primary/50 transition-colors group"
                   >
                     <div className="flex items-start gap-2 text-xs text-foreground/90 leading-relaxed font-sans">
                       <span className="font-mono text-primary font-bold">{idx + 1}.</span>
                       <span>{point}</span>
                     </div>
-                    <Button size="sm" variant="ghost" className="h-7 w-7 p-0 shrink-0 text-muted-foreground group-hover:text-primary">
+                    <span className="inline-flex items-center justify-center h-7 w-7 rounded-md shrink-0 text-muted-foreground group-hover:bg-muted/50 group-hover:text-primary transition-colors">
                       {copiedIndex === idx ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
-                    </Button>
-                  </div>
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>

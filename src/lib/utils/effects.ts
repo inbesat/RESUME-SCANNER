@@ -95,17 +95,24 @@ export function triggerConfetti(): void {
   animationFrameId = requestAnimationFrame(render);
 }
 
+let _audioCtx: AudioContext | null = null;
+function getAudioCtx(): AudioContext | null {
+  try {
+    if (!_audioCtx || _audioCtx.state === 'closed') {
+      const AC = typeof window !== 'undefined' ? (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext) : null;
+      if (AC) _audioCtx = new AC();
+    }
+    if (_audioCtx?.state === 'suspended') _audioCtx.resume();
+    return _audioCtx;
+  } catch { return null; }
+}
+
 export function playAudioFeedback(type: 'success' | 'chime' | 'click'): void {
   if (typeof window === 'undefined') return;
 
   try {
-    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (!AudioContextClass) return;
-
-    const ctx = new AudioContextClass();
-    if (ctx.state === 'suspended') {
-      ctx.resume();
-    }
+    const ctx = getAudioCtx();
+    if (!ctx) return;
 
     if (type === 'success') {
       // Pleasant rising major triad (C5 - E5 - G5 - C6)
@@ -153,15 +160,15 @@ export function playAudioFeedback(type: 'success' | 'chime' | 'click'): void {
  */
 export function useAnimatedNumber(target: number, duration: number = 750): number {
   const [current, setCurrent] = React.useState(target);
-  const prevTargetRef = React.useRef(target);
+  const currentRef = React.useRef(target);
 
   React.useEffect(() => {
-    const startVal = prevTargetRef.current;
+    const startVal = currentRef.current;
     const endVal = target;
-    prevTargetRef.current = target;
 
     if (startVal === endVal) {
       setCurrent(endVal);
+      currentRef.current = endVal;
       return;
     }
 
@@ -173,7 +180,9 @@ export function useAnimatedNumber(target: number, duration: number = 750): numbe
       const progress = Math.min((now - startTime) / duration, 1);
       // Apple-style cubic ease-out
       const ease = 1 - Math.pow(1 - progress, 3);
-      setCurrent(Math.round(startVal + (endVal - startVal) * ease));
+      const nextVal = Math.round(startVal + (endVal - startVal) * ease);
+      setCurrent(nextVal);
+      currentRef.current = nextVal;
 
       if (progress < 1) {
         animId = requestAnimationFrame(step);

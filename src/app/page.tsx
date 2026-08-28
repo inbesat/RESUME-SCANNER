@@ -138,7 +138,7 @@ export default function LandingPage() {
           </div>
           <div className="hero-stats">
             <div className="hstat"><div className="n"><span className="u">40</span>/<span className="u">60</span></div><div className="l">local / AI blend</div></div>
-            <div className="hstat"><div className="n">20<span className="u">/20</span></div><div className="l">vitest tests passing</div></div>
+            <div className="hstat"><div className="n">24<span className="u">/24</span></div><div className="l">vitest tests passing</div></div>
             <div className="hstat"><div className="n">6<span className="u">x</span></div><div className="l">AI Copilot Superpowers</div></div>
             <div className="hstat"><div className="n">0</div><div className="l">DOM / Serverless errors</div></div>
           </div>
@@ -167,7 +167,7 @@ export default function LandingPage() {
             <div className="chip3d missing" style={{ top: '72%', left: '-64px', animationDelay: '1.2s' }}>Kubernetes</div>
             <div className="chip3d matched" style={{ top: '88%', right: '-56px', animationDelay: '1.8s' }}><Check className="h-3 w-3" /> AWS</div>
             <div className="gauge-wrap">
-              <svg width="118" height="118" viewBox="0 0 118 118">
+              <svg width="118" height="118" viewBox="0 0 118 118" aria-label="Fit score 87%" role="img">
                 <circle cx="59" cy="59" r="50" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="8" />
                 <circle
                   ref={gaugeCircleRef}
@@ -453,7 +453,7 @@ export default function LandingPage() {
             <div className="stack-pill"><span className="dot"></span>Vitest</div>
           </div>
           <div className="guardrails reveal">
-            <div className="grail"><div className="gt">npm test</div><div className="gd">10 vitest unit tests covering scoring and anonymization logic.</div></div>
+            <div className="grail"><div className="gt">npm test</div><div className="gd">24 vitest unit tests covering scoring, anonymization, and effects logic.</div></div>
             <div className="grail"><div className="gt">npm run lint / build</div><div className="gd">0 errors, 0 warnings on lint; build passes clean every time.</div></div>
             <div className="grail"><div className="gt">Server-validated routes</div><div className="gd">Groq calls lazy-initialize; every API route validates input server-side.</div></div>
           </div>

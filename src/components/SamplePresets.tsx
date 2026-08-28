@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, ArrowRight, Play, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Sparkles, Play, Check } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { TiltCard } from '@/components/ui/TiltCard';
 import { SAMPLE_PRESETS, SamplePreset } from '@/lib/presets/sample-data';
@@ -15,6 +14,11 @@ interface SamplePresetsProps {
 
 export function SamplePresets({ onSelectPreset, activePresetId }: SamplePresetsProps) {
   const [selectedId, setSelectedId] = useState<string | null>(activePresetId || null);
+
+  // Sync state if parent updates it
+  if (activePresetId !== undefined && activePresetId !== selectedId) {
+    setSelectedId(activePresetId);
+  }
 
   const handleSelect = (preset: SamplePreset) => {
     setSelectedId(preset.id);

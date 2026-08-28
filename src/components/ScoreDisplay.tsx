@@ -81,7 +81,7 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
                     result.fitPercentage >= 80 ? 'bg-emerald-500/30' : result.fitPercentage >= 60 ? 'bg-primary/30' : 'bg-destructive/30'
                   )}
                 />
-                <svg className="w-full h-full transform -rotate-90 relative z-10">
+                <svg className="w-full h-full transform -rotate-90 relative z-10" viewBox="0 0 96 96">
                   <circle
                     cx="48"
                     cy="48"

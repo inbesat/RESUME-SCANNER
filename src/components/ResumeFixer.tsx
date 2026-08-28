@@ -7,18 +7,12 @@ import {
   Download,
   Copy,
   Check,
-  FileText,
   Eye,
   Edit3,
   Columns,
-  RefreshCw,
   Loader2,
-  TrendingUp,
   CheckCircle2,
   AlertTriangle,
-  Layers,
-  ArrowRight,
-  ShieldCheck,
   Printer
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -94,7 +88,7 @@ export function ResumeFixer({
     const formatted = `${data.fullName}
 ${data.title}
 ${data.email} | ${data.phone} | ${data.location}
-${data.links.join(' | ')}
+${(data.links || []).join(' | ')}
 
 ==================================================
 PROFESSIONAL SUMMARY
@@ -104,29 +98,31 @@ ${data.summary}
 ==================================================
 TECHNICAL SKILLS
 ==================================================
-• Core Technologies: ${data.skills.technical.join(', ')}
-• Cloud, Tools & DevOps: ${data.skills.toolsAndCloud.join(', ')}
-• Domain & Leadership: ${data.skills.domainAndSoft.join(', ')}
+• Core Technologies: ${(data.skills?.technical || []).join(', ')}
+• Cloud, Tools & DevOps: ${(data.skills?.toolsAndCloud || []).join(', ')}
+• Domain & Leadership: ${(data.skills?.domainAndSoft || []).join(', ')}
 
 ==================================================
 WORK EXPERIENCE
 ==================================================
-${data.experience
+${(data.experience || [])
   .map(
     (exp) => `${exp.role} | ${exp.company} (${exp.period})
-${exp.bullets.map((b) => `• ${b}`).join('\n')}`
+${(exp.bullets || []).map((b) => `• ${b}`).join('\n')}`
   )
   .join('\n\n')}
 
 ==================================================
 EDUCATION & CERTIFICATIONS
 ==================================================
-${data.education
+${(data.education || [])
   .map((edu) => `${edu.degree} - ${edu.institution} (${edu.year})\n${edu.details || ''}`)
   .join('\n')}
 ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' | ')}` : ''}`;
 
-    navigator.clipboard.writeText(formatted);
+    try {
+      navigator.clipboard.writeText(formatted).catch(() => {});
+    } catch { /* ignore */ }
     setCopied(true);
     playAudioFeedback('click');
     setTimeout(() => setCopied(false), 2000);
@@ -141,13 +137,17 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+    setTimeout(() => URL.revokeObjectURL(element.href), 100);
   }, [data]);
 
   const handlePrintPDF = useCallback(() => {
     if (!printableRef.current) return;
     const printContent = printableRef.current.innerHTML;
     const printWindow = window.open('', '', 'width=900,height=1100');
-    if (!printWindow) return;
+    if (!printWindow) {
+      alert('Popup blocked. Please allow popups for this site to export PDF.');
+      return;
+    }
 
     printWindow.document.write(`
       <!DOCTYPE html>
@@ -286,7 +286,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
                   size="sm"
                   variant="outline"
                   onClick={handleCopyText}
-                  className="h-8 text-xs gap-1.5 border-border/80 hover:border-primary/50"
+                  className="h-10 sm:h-8 text-xs gap-1.5 border-border/80 hover:border-primary/50"
                 >
                   {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
                   {copied ? 'Copied' : 'Copy Text'}
@@ -296,7 +296,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
                   size="sm"
                   variant="outline"
                   onClick={handleDownloadTxt}
-                  className="h-8 text-xs gap-1.5 border-border/80 hover:border-primary/50"
+                  className="h-10 sm:h-8 text-xs gap-1.5 border-border/80 hover:border-primary/50"
                 >
                   <Download className="h-3.5 w-3.5" /> TXT
                 </Button>
@@ -304,7 +304,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
                 <Button
                   size="sm"
                   onClick={handlePrintPDF}
-                  className="h-8 text-xs gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
+                  className="h-10 sm:h-8 text-xs gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
                 >
                   <Printer className="h-3.5 w-3.5" /> Print / Save PDF
                 </Button>
@@ -368,7 +368,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
                     size="sm"
                     variant={isEditing ? 'default' : 'ghost'}
                     onClick={() => setIsEditing(!isEditing)}
-                    className="h-8 text-xs gap-1.5"
+                    className="h-10 sm:h-8 text-xs gap-1.5"
                   >
                     <Edit3 className="h-3.5 w-3.5" />
                     {isEditing ? 'Done Editing' : 'Edit Text'}
