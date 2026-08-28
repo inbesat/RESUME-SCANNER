@@ -68,10 +68,10 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
         </div>
       )}
       <Card className="border-primary/20">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex items-center gap-6">
-              <div className="relative w-24 h-24">
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 sm:gap-6">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
                 <svg className="w-full h-full transform -rotate-90">
                   <circle
                     cx="48"
@@ -96,19 +96,19 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold text-foreground">
+                  <span className="text-2xl sm:text-3xl font-bold text-foreground">
                     {result.fitPercentage}%
                   </span>
                 </div>
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-2xl font-bold">Overall Fit</h3>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="text-xl sm:text-2xl font-bold">Overall Fit</h3>
                   {result.confidence && (
                     <Badge
                       variant="outline"
                       className={cn(
-                        'text-xs capitalize',
+                        'text-[10px] sm:text-xs capitalize',
                         result.confidence === 'high' && 'text-success border-success/40',
                         result.confidence === 'medium' && 'text-warning border-warning/40',
                         result.confidence === 'low' && 'text-destructive border-destructive/40'
@@ -120,7 +120,7 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
                     </Badge>
                   )}
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
                   Scored using {result.scorerUsed === 'hybrid' ? 'Hybrid (Local + AI)' : result.scorerUsed === 'ai' ? 'AI (Groq)' : 'Local Algorithm'}
                 </p>
                 {result.confidenceReason && result.confidence === 'low' && (
@@ -141,14 +141,14 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full sm:w-auto">
               {onExportPDF && (
-                <Button onClick={onExportPDF} className="gap-2">
+                <Button onClick={onExportPDF} className="gap-2 w-full sm:w-auto">
                   <Download className="h-4 w-4" />
                   Export PDF Report
                 </Button>
               )}
-              <div className="text-sm text-muted-foreground">
+              <div className="text-xs text-muted-foreground text-center sm:text-right">
                 Processed in {result.processingTime}ms
               </div>
             </div>

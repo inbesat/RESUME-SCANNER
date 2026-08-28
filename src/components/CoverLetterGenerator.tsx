@@ -95,7 +95,7 @@ export function CoverLetterGenerator({
             size="sm"
             onClick={handleGenerate}
             disabled={isLoading || !resumeText || !jobDescription}
-            className="gap-2 shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="gap-2 shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
           >
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
             {data ? 'Regenerate Outreach' : 'Generate Cover Letter & DM'}
@@ -134,17 +134,17 @@ export function CoverLetterGenerator({
             )}
 
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="w-full">
-              <div className="flex items-center justify-between gap-2 flex-wrap mb-2">
-                <TabsList className="grid grid-cols-3 max-w-md">
-                  <TabsTrigger value="coverLetter" className="text-xs gap-1.5 py-1.5">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+                <TabsList className="grid grid-cols-3 w-full sm:max-w-md">
+                  <TabsTrigger value="coverLetter" className="text-xs gap-1.5 py-1.5 px-2">
                     <FileText className="h-3.5 w-3.5" />
                     Cover Letter
                   </TabsTrigger>
-                  <TabsTrigger value="linkedinDm" className="text-xs gap-1.5 py-1.5">
+                  <TabsTrigger value="linkedinDm" className="text-xs gap-1.5 py-1.5 px-2">
                     <MessageSquare className="h-3.5 w-3.5" />
                     LinkedIn DM
                   </TabsTrigger>
-                  <TabsTrigger value="followUpEmail" className="text-xs gap-1.5 py-1.5">
+                  <TabsTrigger value="followUpEmail" className="text-xs gap-1.5 py-1.5 px-2">
                     <Clock className="h-3.5 w-3.5" />
                     Follow-Up
                   </TabsTrigger>
@@ -154,7 +154,7 @@ export function CoverLetterGenerator({
                   size="sm"
                   variant="outline"
                   onClick={() => handleCopy(activeTab)}
-                  className="gap-1.5 text-xs h-8"
+                  className="gap-1.5 text-xs h-8 w-full sm:w-auto"
                 >
                   {copiedKey === activeTab ? (
                     <>

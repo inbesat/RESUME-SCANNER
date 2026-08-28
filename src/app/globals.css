@@ -139,3 +139,12 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile smooth scrolling & hidden scrollbar utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

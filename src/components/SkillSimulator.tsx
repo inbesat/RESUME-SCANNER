@@ -106,8 +106,8 @@ export function SkillSimulator({
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-muted/40 p-2 rounded-xl border border-border/60">
-            <div className="text-right">
+          <div className="flex items-center justify-between sm:justify-end gap-3 bg-muted/40 p-2 rounded-xl border border-border/60 w-full sm:w-auto">
+            <div className="text-left sm:text-right">
               <span className="text-[10px] text-muted-foreground block font-mono">Simulated Fit</span>
               <div className="flex items-baseline gap-1">
                 <span className="text-2xl font-bold font-display text-foreground">{simulatedFit}%</span>
@@ -126,7 +126,7 @@ export function SkillSimulator({
       <CardContent className="space-y-4">
         {/* Score trajectory callout */}
         {scoreDelta > 0 ? (
-          <div className="rounded-xl border border-success/30 bg-success/5 p-3 flex items-center justify-between gap-2 text-xs">
+          <div className="rounded-xl border border-success/30 bg-success/5 p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-2 text-success">
               <TrendingUp className="h-4 w-4 shrink-0" />
               <span>
@@ -134,7 +134,7 @@ export function SkillSimulator({
               </span>
             </div>
             {simulatedFit >= 85 && (
-              <Badge variant="outline" className="bg-success text-success-foreground border-transparent text-[10px] gap-1 shrink-0">
+              <Badge variant="outline" className="bg-success text-success-foreground border-transparent text-[10px] gap-1 shrink-0 mt-1 sm:mt-0">
                 <Trophy className="h-3 w-3" /> Top 10% Tier
               </Badge>
             )}

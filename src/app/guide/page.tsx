@@ -41,23 +41,23 @@ export default function GuidePage() {
       </header>
 
       {/* Main Guide Content */}
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 space-y-10">
-        <div className="flex items-center justify-between flex-wrap gap-4 border-b border-border/60 pb-6">
+      <main className="mx-auto max-w-6xl px-4 py-6 sm:py-8 sm:px-6 space-y-8 sm:space-y-10">
+        <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row gap-4 border-b border-border/60 pb-6">
           <div>
             <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-primary mb-1">
               <Terminal className="h-3.5 w-3.5" />
               Documentation &amp; Tutorial
             </div>
-            <h1 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
               User Guide &amp; Feature Masterclass
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+            <p className="mt-2 max-w-2xl text-xs sm:text-sm text-muted-foreground leading-relaxed">
               Step-by-step documentation, interactive UI screenshots, scoring formulas, and tips for job seekers and recruiters.
             </p>
           </div>
 
-          <Link href="/app">
-            <Button className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Link href="/app" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
               <Sparkles className="h-4 w-4" />
               Open Resume Screener
             </Button>
@@ -68,21 +68,21 @@ export default function GuidePage() {
         <AppGuide />
 
         {/* Bottom CTA Banner */}
-        <div className="rounded-2xl border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-card p-8 text-center space-y-4 shadow-sm">
-          <h3 className="font-display text-2xl font-bold text-foreground">
+        <div className="rounded-2xl border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-card p-6 sm:p-8 text-center space-y-4 shadow-sm">
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">
             Ready to score your resume?
           </h3>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-muted-foreground max-w-xl mx-auto">
             Test drive with 1-click sample presets or upload your own resume and job description to get an evidence-backed score in under 60 seconds.
           </p>
-          <div className="flex items-center justify-center gap-3 pt-2">
-            <Link href="/app">
-              <Button size="lg" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+            <Link href="/app" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
                 Score My Resume Now <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/app?mode=recruiter">
-              <Button size="lg" variant="outline" className="gap-2">
+            <Link href="/app?mode=recruiter" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto gap-2">
                 Try Recruiter Mode
               </Button>
             </Link>

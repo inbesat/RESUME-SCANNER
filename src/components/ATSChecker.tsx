@@ -55,14 +55,14 @@ export function ATSChecker({ resumeText }: ATSCheckerProps) {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-xs text-muted-foreground font-mono">ATS Readiness</div>
-              <div className={cn('text-2xl font-bold font-display', getScoreColor(audit.overallScore))}>
+          <div className="flex items-center justify-between sm:justify-end gap-3 bg-muted/40 sm:bg-transparent p-2 sm:p-0 rounded-xl border border-border/60 sm:border-0 w-full sm:w-auto">
+            <div className="text-left sm:text-right">
+              <div className="text-[10px] sm:text-xs text-muted-foreground font-mono">ATS Readiness</div>
+              <div className={cn('text-xl sm:text-2xl font-bold font-display', getScoreColor(audit.overallScore))}>
                 {audit.overallScore}%
               </div>
             </div>
-            <Badge variant="outline" className={cn('text-sm px-3 py-1 font-bold font-mono', getGradeBg(audit.grade))}>
+            <Badge variant="outline" className={cn('text-xs sm:text-sm px-2.5 sm:px-3 py-1 font-bold font-mono', getGradeBg(audit.grade))}>
               {audit.grade}
             </Badge>
           </div>

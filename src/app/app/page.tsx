@@ -476,32 +476,34 @@ export default function AppPage() {
                 </div>
 
                 <Tabs value={activeCopilotTab} onValueChange={(v) => setActiveCopilotTab(v as typeof activeCopilotTab)} className="w-full">
-                  <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 max-w-4xl">
-                    <TabsTrigger value="optimizer" className="text-xs gap-1.5 py-2">
-                      <Wand2 className="h-3.5 w-3.5" />
-                      Bullet Optimizer
-                    </TabsTrigger>
-                    <TabsTrigger value="simulator" className="text-xs gap-1.5 py-2">
-                      <Sliders className="h-3.5 w-3.5" />
-                      Skill Simulator
-                    </TabsTrigger>
-                    <TabsTrigger value="ats" className="text-xs gap-1.5 py-2">
-                      <ShieldCheck className="h-3.5 w-3.5" />
-                      ATS Audit
-                    </TabsTrigger>
-                    <TabsTrigger value="interview" className="text-xs gap-1.5 py-2">
-                      <Target className="h-3.5 w-3.5" />
-                      Interview Prep
-                    </TabsTrigger>
-                    <TabsTrigger value="outreach" className="text-xs gap-1.5 py-2">
-                      <Mail className="h-3.5 w-3.5" />
-                      Outreach / DM
-                    </TabsTrigger>
-                    <TabsTrigger value="bias" className="text-xs gap-1.5 py-2">
-                      <ShieldAlert className="h-3.5 w-3.5" />
-                      Fairness Check
-                    </TabsTrigger>
-                  </TabsList>
+                  <div className="overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <TabsList className="flex w-max sm:w-full sm:grid sm:grid-cols-3 lg:grid-cols-6 max-w-4xl gap-1">
+                      <TabsTrigger value="optimizer" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <Wand2 className="h-3.5 w-3.5" />
+                        Bullet Optimizer
+                      </TabsTrigger>
+                      <TabsTrigger value="simulator" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <Sliders className="h-3.5 w-3.5" />
+                        Skill Simulator
+                      </TabsTrigger>
+                      <TabsTrigger value="ats" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <ShieldCheck className="h-3.5 w-3.5" />
+                        ATS Audit
+                      </TabsTrigger>
+                      <TabsTrigger value="interview" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <Target className="h-3.5 w-3.5" />
+                        Interview Prep
+                      </TabsTrigger>
+                      <TabsTrigger value="outreach" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <Mail className="h-3.5 w-3.5" />
+                        Outreach / DM
+                      </TabsTrigger>
+                      <TabsTrigger value="bias" className="text-xs gap-1.5 py-2 px-3 shrink-0 sm:shrink">
+                        <ShieldAlert className="h-3.5 w-3.5" />
+                        Fairness Check
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
 
                   <TabsContent value="optimizer" className="mt-4">
                     <BulletOptimizer

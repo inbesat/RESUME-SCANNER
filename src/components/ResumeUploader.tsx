@@ -139,7 +139,7 @@ export function ResumeUploader({ onParseComplete, onError, onParseStart, isLoadi
   return (
     <div
       className={cn(
-        'border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors',
+        'border-2 border-dashed rounded-xl p-5 sm:p-8 text-center cursor-pointer transition-colors',
         dragActive
           ? 'border-primary bg-primary/5'
           : 'border-border  hover:border-primary/50 hover:bg-primary/[0.02]'
@@ -169,13 +169,13 @@ export function ResumeUploader({ onParseComplete, onError, onParseStart, isLoadi
         disabled={isLoading}
       />
       
-      <div className={cn('mx-auto mb-4 flex items-center justify-center h-14 w-14 rounded-full transition-colors', dragActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary')}>
-        <Upload className="h-7 w-7" />
+      <div className={cn('mx-auto mb-3 sm:mb-4 flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-full transition-colors', dragActive ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary')}>
+        <Upload className="h-6 w-6 sm:h-7 sm:w-7" />
       </div>
-      <p className="text-base font-semibold mb-1">
+      <p className="text-sm sm:text-base font-semibold mb-1">
         {file ? 'Click to change file' : 'Drag & drop resume or click to upload'}
       </p>
-      <p className="text-sm text-muted-foreground mb-4">
+      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
         PDF, DOCX, TXT, PNG, or JPEG (max 10MB)
       </p>
       

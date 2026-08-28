@@ -125,4 +125,32 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await launchAppBtn.click();
     await expect(page).toHaveURL(/\/app/);
   });
+
+  test('Mobile viewport (375x667) responsiveness, preset loading and copilot interaction', async ({ page }) => {
+    // Emulate mobile screen size (e.g. iPhone SE / Android)
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/app');
+
+    // Verify header and mobile branding
+    await expect(page.locator('text=RESUME_SCREENER')).toBeVisible();
+
+    // Verify 1-Click preset button works on mobile
+    const frontendPreset = page.locator('button:has-text("Senior Frontend Engineer")').first();
+    await expect(frontendPreset).toBeVisible();
+    await frontendPreset.click();
+
+    // Wait for score calculation
+    await expect(page.locator('text=Overall Fit')).toBeVisible({ timeout: 15000 });
+
+    // Verify mobile copilot tabs can be tapped and content toggles
+    const atsTab = page.locator('button[role="tab"]:has-text("ATS Audit")');
+    await expect(atsTab).toBeVisible();
+    await atsTab.click();
+    await expect(page.locator('text=ATS Readiness').first()).toBeVisible();
+
+    const bulletTab = page.locator('button[role="tab"]:has-text("Bullet Optimizer")');
+    await expect(bulletTab).toBeVisible();
+    await bulletTab.click();
+    await expect(page.locator('text=AI Bullet Point Optimizer').first()).toBeVisible();
+  });
 });

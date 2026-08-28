@@ -96,7 +96,7 @@ export function InterviewPredictor({
             size="sm"
             onClick={handlePredict}
             disabled={isLoading || !resumeText || !jobDescription}
-            className="gap-2 shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="gap-2 shrink-0 bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto"
           >
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
             {data ? 'Regenerate Questions' : 'Predict Interview Questions'}
