@@ -437,10 +437,95 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <section id="copilot">
+        <div className="wrap">
+          <div className="sec-head reveal">
+            <span className="sec-eyebrow">06 — AI Copilot &amp; Salary Estimator</span>
+            <h2>Don't just get a score, get a raise</h2>
+            <p>Our intelligent copilot identifies exactly what skills are missing to unlock top-tier salary bands, and generates tailored negotiation scripts.</p>
+          </div>
+          <div className="feature-row reveal">
+            <div className="feature-text">
+              <span className="ftag">Superpowers</span>
+              <h3>Salary insights &amp; Resume Fixer</h3>
+              <ul>
+                <li><b>Global Salary Estimates:</b> Maps your fit score to real-world compensation benchmarks across NA, EU, and Asia.</li>
+                <li><b>Actionable ROI Skills:</b> Highlights exactly which missing keyword would unlock the biggest bump in salary tier.</li>
+                <li><b>Negotiation Scripts:</b> Generates customized talking points based on your strongest overlapping skills.</li>
+                <li><b>1-Click AI Fixer:</b> The magic editor automatically rewrites weak bullet points using the proven XYZ formula.</li>
+              </ul>
+            </div>
+            <div className="feature-panel">
+              <div className="panel-bar"><span></span><span></span><span></span><div className="lbl">salary-copilot.tsx</div></div>
+              <div className="panel-body">
+                <div className="diff-cols" style={{ gap: '1rem', flexDirection: 'column' }}>
+                  <div className="diff-box" style={{ width: '100%' }}>
+                    <div className="dt" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span>Estimated Offer Range (USD)</span>
+                      <span style={{ color: 'var(--success)' }}>Top 10% Bracket</span>
+                    </div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 800, margin: '0.5rem 0' }}>$145,000 - $160,000</div>
+                    <div className="diff-line">Missing ROI Skill: <span className="redact" style={{ background: 'var(--success)', opacity: 0.2 }}>GraphQL</span> (Very High Demand)</div>
+                  </div>
+                  <div className="diff-box" style={{ width: '100%' }}>
+                    <div className="dt">AI Rewrite Suggestion</div>
+                    <div className="diff-line" style={{ textDecoration: 'line-through', opacity: 0.5 }}>Did frontend stuff with React.</div>
+                    <div className="diff-line" style={{ color: 'var(--primary)' }}>Engineered responsive frontend architecture using React, accelerating load times by 30%.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="roast">
+        <div className="wrap">
+          <div className="sec-head reveal">
+            <span className="sec-eyebrow">07 — Savage Recruiter Roast</span>
+            <h2>Brutal honesty mode unlocked</h2>
+            <p>Tired of generic feedback? Switch on Savage Mode to hear exactly what a stressed-out recruiter thinks of your resume.</p>
+          </div>
+          <div className="feature-row rev reveal">
+            <div className="feature-text">
+              <span className="ftag">Reality Check</span>
+              <h3>No sugar-coating, just facts</h3>
+              <ul>
+                <li><b>6-Second Glance Simulator:</b> See precisely what a recruiter absorbs in their initial skim.</li>
+                <li><b>Buzzword Crime Scene:</b> Highlights overused fluff (synergy, thought-leader) and docks points.</li>
+                <li><b>Red Flag Detection:</b> Instantly calls out employment gaps, weird formatting, or suspicious skill bloat.</li>
+                <li><b>Mentor Mode Toggle:</b> Easily switch back to constructive, professional feedback when you can't handle the heat.</li>
+              </ul>
+            </div>
+            <div className="feature-panel">
+              <div className="panel-bar"><span></span><span></span><span></span><div className="lbl">recruiter-roast.tsx</div></div>
+              <div className="panel-body">
+                <div className="lb-row" style={{ border: '1px solid var(--destructive)', background: 'rgba(239, 68, 68, 0.05)' }}>
+                  <div className="lb-name" style={{ width: '100%' }}>
+                    🔥 Top Red Flag
+                    <span className="sub" style={{ marginTop: '4px', color: 'rgba(255,255,255,0.7)' }}>
+                      "Proficient in 24 programming languages? Unless you're a cyborg, this smells like keyword stuffing."
+                    </span>
+                  </div>
+                </div>
+                <div className="lb-row" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div className="lb-name" style={{ width: '100%' }}>
+                    🚨 Buzzword Crime
+                    <span className="sub" style={{ marginTop: '4px', color: 'rgba(255,255,255,0.7)' }}>
+                      "Dynamic team player" — Found 3 times. Show, don't tell.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="stack">
         <div className="wrap">
           <div className="sec-head reveal">
-            <span className="sec-eyebrow">06 — Tech stack &amp; guardrails</span>
+            <span className="sec-eyebrow">08 — Tech stack &amp; guardrails</span>
             <h2>Built to fail loudly, not silently</h2>
             <p>Every AI call is optional infrastructure, not a dependency the app collapses without.</p>
           </div>
