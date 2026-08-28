@@ -5,6 +5,7 @@ import { Share2, Copy, Check, ExternalLink, Sparkles, Trophy, Award } from 'luci
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { ScoreResult, ParsedResume } from '@/types';
 import { cn } from '@/lib/utils/helpers';
 import { triggerConfetti, playAudioFeedback } from '@/lib/utils/effects';
@@ -54,7 +55,7 @@ export function ShareableReportCard({ scoreResult, resume, roleTitle = 'Target R
   };
 
   return (
-    <div className="rounded-2xl border border-primary/30 bg-gradient-to-b from-card to-background p-5 sm:p-6 shadow-xl space-y-4">
+    <div className="rounded-2xl border border-primary/30 glass-panel glass-specular p-5 sm:p-6 shadow-xl space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary">
@@ -85,46 +86,49 @@ export function ShareableReportCard({ scoreResult, resume, roleTitle = 'Target R
         </Button>
       </div>
 
-      {/* Card Preview */}
-      <div className={cn('rounded-xl border p-5 bg-gradient-to-br space-y-4 shadow-sm', getScoreGradient(fit))}>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-primary block">
-              Verified Candidate Report
-            </span>
-            <h3 className="text-lg font-bold font-display text-foreground mt-0.5">
-              {roleTitle}
-            </h3>
-            <p className="text-xs text-muted-foreground">
-              {resume.fileName} • {resume.wordCount} words
-            </p>
-          </div>
-
-          <div className="text-right">
-            <div className="text-3xl font-extrabold font-display text-foreground tracking-tight">
-              {fit}%
+      {/* 3D Interactive Spatial Certificate Preview */}
+      <TiltCard maxTilt={8} scale={1.03} className="p-0 border-0">
+        <div className={cn('rounded-2xl border p-5 bg-gradient-to-br space-y-4 shadow-lg cursor-pointer glass-specular', getScoreGradient(fit))}>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-primary block">
+                Verified Candidate Report
+              </span>
+              <h3 className="text-lg font-bold font-display text-foreground mt-0.5">
+                {roleTitle}
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                {resume.fileName} • {resume.wordCount} words
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">
-              {scoreResult.confidence} confidence
-            </span>
-          </div>
-        </div>
 
-        {topMatched.length > 0 && (
-          <div className="space-y-1.5 border-t border-border/40 pt-3">
-            <span className="text-[11px] text-muted-foreground font-medium block">
+            <div className="text-right">
+              <div className="text-3xl font-extrabold font-display text-foreground tracking-tight">
+                {fit}%
+              </div>
+              <span className="text-[10px] font-mono text-muted-foreground uppercase">
+                {scoreResult.confidence} confidence
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-1.5 pt-1">
+            <span className="text-[11px] font-medium text-foreground block">
               Top Matched Competencies ({matchedCount} total):
             </span>
             <div className="flex flex-wrap gap-1.5">
-              {topMatched.map((m, i) => (
-                <Badge key={i} variant="outline" className="text-[10px] bg-background/80 text-foreground border-border/60">
-                  ✓ {m}
-                </Badge>
+              {topMatched.map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="px-2 py-0.5 rounded-md bg-background/60 border border-border/80 text-[11px] font-mono text-foreground/90"
+                >
+                  ✓ {skill}
+                </span>
               ))}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      </TiltCard>
 
       {/* Share Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 pt-1">

@@ -213,7 +213,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
             <Button
               onClick={handleGenerate}
               disabled={isLoading || !resumeText || !jobDescription}
-              className="gap-2 bg-gradient-to-r from-primary to-[#ff5f42] text-primary-foreground font-semibold shadow-md hover:opacity-90 w-full sm:w-auto"
+              className="gap-2 bg-gradient-to-r from-primary to-[#ff5f42] text-primary-foreground font-semibold shadow-md hover:opacity-90 w-full sm:w-auto shimmer-badge"
             >
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               {data ? 'Regenerate 95%+ Resume' : '✨ Auto-Fix My Resume'}
@@ -248,7 +248,7 @@ ${data.certifications?.length ? `\nCertifications: ${data.certifications.join(' 
                 size="lg"
                 onClick={handleGenerate}
                 disabled={!resumeText || !jobDescription}
-                className="gap-2 bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90"
+                className="gap-2 bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90 shimmer-badge"
               >
                 <Sparkles className="h-4 w-4" />
                 Generate Tailored ATS Resume Now

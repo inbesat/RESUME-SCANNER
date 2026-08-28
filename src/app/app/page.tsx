@@ -49,6 +49,7 @@ import { RecruiterRoast } from '@/components/RecruiterRoast';
 import { SalaryEstimator } from '@/components/SalaryEstimator';
 import { SamplePresets } from '@/components/SamplePresets';
 import { ShareableReportCard } from '@/components/ShareableReportCard';
+import { TiltCard } from '@/components/ui/TiltCard';
 import ThemeToggle from '@/components/ThemeToggle';
 import { cn, parseApiResponse } from '@/lib/utils/helpers';
 import { triggerConfetti, playAudioFeedback } from '@/lib/utils/effects';
@@ -337,13 +338,17 @@ export default function AppPage() {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-background relative">
+      {/* VisionOS Ambient Glow Auroras */}
+      <div className="ambient-glow-orange -top-24 -left-24" />
+      <div className="ambient-glow-cyan -bottom-24 -right-24" />
+
       {/* ============================================================ */}
       {/* 1. LEFT COLLAPSIBLE SIDEBAR (Desktop)                         */}
       {/* ============================================================ */}
       <aside
         className={cn(
-          'hidden lg:flex flex-col border-r border-border/80 bg-card/50 backdrop-blur-md transition-all duration-300 z-30 shrink-0 select-none',
+          'hidden lg:flex flex-col border-r border-border/80 glass-panel glass-specular transition-all duration-300 z-30 shrink-0 select-none shadow-2xl',
           isSidebarOpen ? 'w-72' : 'w-16'
         )}
       >
@@ -502,7 +507,7 @@ export default function AppPage() {
       {/* ============================================================ */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Top Sticky Header */}
-        <header className="h-16 border-b border-border/80 bg-background/80 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-4 z-20 shrink-0">
+        <header className="h-16 border-b border-border/80 glass-panel glass-specular px-4 sm:px-6 flex items-center justify-between gap-4 z-20 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
             {/* Mobile Hamburger Menu Toggle */}
             <button
@@ -536,7 +541,7 @@ export default function AppPage() {
                   <button
                     type="button"
                     onClick={() => setActiveSection('overview')}
-                    className="flex items-center gap-1.5 rounded-full px-2.5 py-1 bg-primary/10 border border-primary/30 text-xs font-bold text-primary hover:bg-primary/20 transition-all cursor-pointer"
+                    className="flex items-center gap-1.5 rounded-full px-2.5 py-1 bg-primary/10 border border-primary/30 text-xs font-bold text-primary hover:bg-primary/20 transition-all cursor-pointer shimmer-badge"
                     title="Click to view full score breakdown"
                   >
                     <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
@@ -761,28 +766,34 @@ export default function AppPage() {
                           {NAV_ITEMS.filter((n) => n.id !== 'overview').map((item) => {
                             const Icon = item.icon;
                             return (
-                              <div
+                              <TiltCard
                                 key={item.id}
-                                onClick={() => {
-                                  setActiveSection(item.id);
-                                  playAudioFeedback('click');
-                                }}
-                                className="p-4 rounded-xl border border-border/80 bg-card hover:border-primary/50 hover:shadow-md cursor-pointer transition-all flex items-start justify-between gap-3 group"
+                                maxTilt={7}
+                                scale={1.02}
+                                className="p-0 border-0 bg-transparent"
                               >
-                                <div className="space-y-1 min-w-0">
-                                  <div className="flex items-center gap-2">
-                                    <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
-                                    <span className="font-semibold text-xs text-foreground truncate">{item.label}</span>
-                                    {item.badge && (
-                                      <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-primary/30 text-primary">
-                                        {item.badge}
-                                      </Badge>
-                                    )}
+                                <div
+                                  onClick={() => {
+                                    setActiveSection(item.id);
+                                    playAudioFeedback('click');
+                                  }}
+                                  className="h-full p-4 rounded-2xl glass-card cursor-pointer transition-all flex items-start justify-between gap-3 group"
+                                >
+                                  <div className="space-y-1 min-w-0">
+                                    <div className="flex items-center gap-2">
+                                      <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                                      <span className="font-semibold text-xs text-foreground truncate">{item.label}</span>
+                                      {item.badge && (
+                                        <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-primary/30 text-primary">
+                                          {item.badge}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <p className="text-[11px] text-muted-foreground">{item.desc}</p>
                                   </div>
-                                  <p className="text-[11px] text-muted-foreground">{item.desc}</p>
+                                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
                                 </div>
-                                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
-                              </div>
+                              </TiltCard>
                             );
                           })}
                         </div>

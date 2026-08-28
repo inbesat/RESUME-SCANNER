@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ScoreResult, ScoreBreakdown, KeywordCategory } from '@/types';
 import { cn } from '@/lib/utils/helpers';
+import { useAnimatedNumber } from '@/lib/utils/effects';
 
 interface ScoreDisplayProps {
   result: ScoreResult | null;
@@ -32,6 +33,7 @@ const CATEGORY_CONFIG = {
 
 export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: ScoreDisplayProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'details'>('overview');
+  const animatedScore = useAnimatedNumber(result ? result.fitPercentage : 0, 850);
 
   if (!result) {
     return (
@@ -72,7 +74,14 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 sm:gap-6">
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
-                <svg className="w-full h-full transform -rotate-90">
+                {/* VisionOS Glowing Halo */}
+                <div
+                  className={cn(
+                    'absolute inset-0 rounded-full blur-xl opacity-40 transition-all duration-700 pointer-events-none',
+                    result.fitPercentage >= 80 ? 'bg-emerald-500/30' : result.fitPercentage >= 60 ? 'bg-primary/30' : 'bg-destructive/30'
+                  )}
+                />
+                <svg className="w-full h-full transform -rotate-90 relative z-10">
                   <circle
                     cx="48"
                     cy="48"
@@ -80,7 +89,7 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
                     stroke="currentColor"
                     strokeWidth="8"
                     fill="none"
-                    className="text-muted"
+                    className="text-muted/60"
                   />
                   <circle
                     cx="48"
@@ -95,9 +104,9 @@ export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: Sc
                     strokeLinecap="round"
                   />
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center z-10">
                   <span className="text-2xl sm:text-3xl font-bold text-foreground">
-                    {result.fitPercentage}%
+                    {animatedScore}%
                   </span>
                 </div>
               </div>

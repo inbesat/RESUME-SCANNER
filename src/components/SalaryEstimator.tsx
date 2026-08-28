@@ -20,6 +20,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { SkillSalaryEstimate } from '@/types';
 import { parseApiResponse, cn } from '@/lib/utils/helpers';
 import { playAudioFeedback, triggerConfetti } from '@/lib/utils/effects';
@@ -204,44 +205,46 @@ export function SalaryEstimator({
         {data && (
           <div className="space-y-5">
             {/* Hero Salary Gauge Card */}
-            <div className="rounded-2xl border border-success/30 bg-gradient-to-br from-success/15 via-card to-card p-6 shadow-sm space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                      Estimated 2026 Market Value
-                    </span>
-                    <Badge variant="outline" className="bg-success text-success-foreground border-transparent text-[10px] font-mono">
-                      {data.seniorityLevel} ({data.yearsOfExperienceEstimated} Yrs Exp)
-                    </Badge>
-                    <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30 text-[10px]">
-                      {data.marketTier}
-                    </Badge>
+            <TiltCard maxTilt={5} scale={1.01} className="p-0 border-0">
+              <div className="rounded-2xl border border-success/30 bg-gradient-to-br from-success/15 via-card/90 to-card glass-specular p-6 shadow-lg space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                        Estimated 2026 Market Value
+                      </span>
+                      <Badge variant="outline" className="bg-success text-success-foreground border-transparent text-[10px] font-mono">
+                        {data.seniorityLevel} ({data.yearsOfExperienceEstimated} Yrs Exp)
+                      </Badge>
+                      <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30 text-[10px]">
+                        {data.marketTier}
+                      </Badge>
+                    </div>
+
+                    <div className="flex items-baseline gap-3 mt-2">
+                      <span className="text-3xl sm:text-5xl font-display font-bold text-foreground">
+                        {formatAmount(data.estimatedSalaryRange.median)}
+                      </span>
+                      <span className="text-xs sm:text-sm text-muted-foreground font-mono">
+                        / year median
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground mt-1 font-mono">
+                      Expected Band: <strong className="text-foreground">{formatAmount(data.estimatedSalaryRange.min)}</strong> – <strong className="text-foreground">{formatAmount(data.estimatedSalaryRange.max)}</strong>
+                    </p>
                   </div>
 
-                  <div className="flex items-baseline gap-3 mt-2">
-                    <span className="text-3xl sm:text-5xl font-display font-bold text-foreground">
-                      {formatAmount(data.estimatedSalaryRange.median)}
-                    </span>
-                    <span className="text-xs sm:text-sm text-muted-foreground font-mono">
-                      / year median
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-muted-foreground mt-1 font-mono">
-                    Expected Band: <strong className="text-foreground">{formatAmount(data.estimatedSalaryRange.min)}</strong> – <strong className="text-foreground">{formatAmount(data.estimatedSalaryRange.max)}</strong>
-                  </p>
-                </div>
-
-                <div className="bg-muted/40 p-4 rounded-xl border border-border/70 text-right space-y-1 sm:shrink-0">
-                  <div className="text-[11px] text-muted-foreground font-mono">Target Role Title</div>
-                  <div className="font-semibold text-sm text-foreground">{data.roleTitle}</div>
-                  <div className="text-[10px] text-success flex items-center justify-end gap-1 font-mono">
-                    <Zap className="h-3 w-3" /> Based on 2026 Tech Index
+                  <div className="bg-muted/40 p-4 rounded-xl border border-border/70 text-right space-y-1 sm:shrink-0">
+                    <div className="text-[11px] text-muted-foreground font-mono">Target Role Title</div>
+                    <div className="font-semibold text-sm text-foreground">{data.roleTitle}</div>
+                    <div className="text-[10px] text-success flex items-center justify-end gap-1 font-mono">
+                      <Zap className="h-3 w-3" /> Based on 2026 Tech Index
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </TiltCard>
 
             {/* Missing Skill Dollar ROI Leaderboard */}
             <div className="rounded-xl border border-border/80 bg-card/60 p-5 space-y-3">

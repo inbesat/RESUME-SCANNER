@@ -24,6 +24,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { TiltCard } from '@/components/ui/TiltCard';
 import { RecruiterRoastResult } from '@/types';
 import { parseApiResponse, cn } from '@/lib/utils/helpers';
 import { triggerConfetti, playAudioFeedback } from '@/lib/utils/effects';
@@ -228,55 +229,56 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
         {data && (
           <div className="space-y-5">
             {/* Survival Score & Headline Banner */}
-            <div className={cn('rounded-2xl border p-5 sm:p-6 shadow-sm space-y-4', mode === 'roast' ? 'bg-gradient-to-br from-destructive/10 via-card to-card border-destructive/30' : 'bg-gradient-to-br from-primary/10 via-card to-card border-primary/30')}>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className={cn('h-14 w-14 rounded-2xl flex flex-col items-center justify-center font-display font-bold shadow-md shrink-0 text-foreground border', mode === 'roast' ? 'bg-destructive/20 border-destructive/40' : 'bg-primary/20 border-primary/40')}>
-                    <span className="text-xl leading-none">{data.roastScore}%</span>
-                    <span className="text-[9px] font-mono text-muted-foreground uppercase">Survival</span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-display text-lg font-bold text-foreground">
-                        {data.survivalTier}
-                      </h3>
-                      <Badge variant="outline" className={cn('text-xs font-semibold px-2.5 py-0.5', getTierColor(data.survivalTier))}>
-                        {data.survivalTier === 'Instant Shredder' ? '🗑️ Instant Shredder' : data.survivalTier === 'Phone Screen Gamble' ? '🎲 50/50 Coin Flip' : data.survivalTier === 'Strong Contender' ? '⭐ Strong Contender' : '🏆 FAANG Onsite Ready'}
-                      </Badge>
+            <TiltCard maxTilt={5} scale={1.01} className="p-0 border-0">
+              <div className={cn('rounded-2xl border p-5 sm:p-6 shadow-lg space-y-4 glass-specular', mode === 'roast' ? 'bg-gradient-to-br from-destructive/10 via-card/90 to-card border-destructive/30' : 'bg-gradient-to-br from-primary/10 via-card/90 to-card border-primary/30')}>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className={cn('h-14 w-14 rounded-2xl flex flex-col items-center justify-center font-display font-bold shadow-md shrink-0 text-foreground border', mode === 'roast' ? 'bg-destructive/20 border-destructive/40' : 'bg-primary/20 border-primary/40')}>
+                      <span className="text-xl leading-none">{data.roastScore}%</span>
+                      <span className="text-[9px] font-mono text-muted-foreground uppercase">Survival</span>
                     </div>
-                    <p className="text-xs sm:text-sm font-medium text-foreground/90 mt-1 italic">
-                      &quot;{data.roastHeadline}&quot;
-                    </p>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-display text-lg font-bold text-foreground">
+                          {data.survivalTier}
+                        </h3>
+                        <Badge variant="outline" className={cn('text-xs font-semibold px-2.5 py-0.5', getTierColor(data.survivalTier))}>
+                          {data.survivalTier === 'Instant Shredder' ? '🗑️ Instant Shredder' : data.survivalTier === 'Phone Screen Gamble' ? '🎲 50/50 Coin Flip' : data.survivalTier === 'Strong Contender' ? '⭐ Strong Contender' : '🏆 FAANG Onsite Ready'}
+                        </Badge>
+                      </div>
+                      <p className="text-xs sm:text-sm font-medium text-foreground/90 mt-1 italic">
+                        &quot;{data.roastHeadline}&quot;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-wrap sm:shrink-0">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleShareTwitter}
+                      className="h-8 text-xs gap-1.5 border-border/80 hover:text-primary hover:border-primary/50"
+                    >
+                      <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                      Share Roast
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={handleCopySummary}
+                      className="h-8 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
+                    >
+                      {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
+                      {copied ? 'Copied' : 'Copy Roast'}
+                    </Button>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 flex-wrap sm:shrink-0">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleShareTwitter}
-                    className="h-8 text-xs gap-1.5 border-border/80 hover:text-primary hover:border-primary/50"
-                  >
-                    <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                    Share Roast
-                  </Button>
-
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={handleCopySummary}
-                    className="h-8 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
-                  >
-                    {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
-                    {copied ? 'Copied' : 'Copy Roast'}
-                  </Button>
-                </div>
-              </div>
-
-              {/* 6-Second Glance Simulation */}
-              <div className="rounded-xl border border-border/70 bg-card/80 p-4 space-y-1.5">
+                {/* 6-Second Glance Simulation */}
+                <div className="rounded-xl border border-border/70 bg-card/80 p-4 space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-semibold text-primary">
                   <Eye className="h-3.5 w-3.5" />
                   <span>The 6-Second Recruiter Glance (Internal Monologue):</span>
@@ -286,6 +288,7 @@ ${data.redFlags.map((f) => `• ${f}`).join('\n')}`;
                 </p>
               </div>
             </div>
+          </TiltCard>
 
             {/* Red Flags / Core Observations */}
             <div className="rounded-xl border border-border/80 bg-card/60 p-4 space-y-3">

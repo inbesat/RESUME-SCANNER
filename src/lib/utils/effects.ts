@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 /**
  * Zero-dependency celebratory effects: Canvas Confetti & Synthesized Web Audio Chimes
  */
@@ -144,4 +146,43 @@ export function playAudioFeedback(type: 'success' | 'chime' | 'click'): void {
   } catch {
     // Audio contexts can fail gracefully on strict browser autoplay policies
   }
+}
+
+/**
+ * Spring-interpolated smooth number count-up hook for metrics and scores
+ */
+export function useAnimatedNumber(target: number, duration: number = 750): number {
+  const [current, setCurrent] = React.useState(target);
+  const prevTargetRef = React.useRef(target);
+
+  React.useEffect(() => {
+    const startVal = prevTargetRef.current;
+    const endVal = target;
+    prevTargetRef.current = target;
+
+    if (startVal === endVal) {
+      setCurrent(endVal);
+      return;
+    }
+
+    let startTime: number | null = null;
+    let animId: number;
+
+    const step = (now: number) => {
+      if (!startTime) startTime = now;
+      const progress = Math.min((now - startTime) / duration, 1);
+      // Apple-style cubic ease-out
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCurrent(Math.round(startVal + (endVal - startVal) * ease));
+
+      if (progress < 1) {
+        animId = requestAnimationFrame(step);
+      }
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, [target, duration]);
+
+  return current;
 }

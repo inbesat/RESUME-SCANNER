@@ -88,7 +88,19 @@
 
 ### 13. 🎊 Milestone Celebration & Shareable Report Card
 - Zero-dependency canvas confetti burst and Web Audio synthesized chimes on scoring $\ge 80\%$.
-- Generates a glassmorphic report card with 1-click sharing to **X / Twitter**, **LinkedIn**, and **GitHub Markdown Shield Badges**.
+- Generates a **3D Holographic Certificate** with GitHub Markdown badges, tweetable score links, and LinkedIn share cards.
+
+### 14. 🍏 Apple Vision Glassmorphism 2.0 & 3D Spatial Cards (`ui-ux-pro-max` Standard)
+- **VisionOS Specular Highlight Rims**: Ultra-crisp frosted glass (`backdrop-blur-2xl`) with 1px top metallic specular reflections (`glass-specular`) and subtle inner ambient shadows.
+- **Interactive 3D Mouse Tilt & Dynamic Cursor Glare**: Spring-interpolated 3D perspective hover physics (`TiltCard.tsx`) where real-time light glare follows pointer movement across presets, tool tiles, and certificates.
+- **Ambient Floating Neon Auroras**: Keyframe-animated ambient light orbs that drift gently in the background without GPU/CPU overhead.
+- **Fluid Spring Micro-Physics**: Smooth `useAnimatedNumber` count-up transitions on the Radial Fit Gauge and salary figures, paired with `active:scale-[0.97]` tactile button physics.
+
+### 15. 🗂️ Modern SaaS Collapsible Studio Sidebar (Linear / Notion Style)
+- **Full-Height Collapsible Navigation Rail**: Toggle between full sidebar (`w-72`) and compact icon rail (`w-16`) to maximize workspace canvas real estate.
+- **Dedicated Full-Screen Workspaces**: Each AI tool (Auto-Fixer, Recruiter Roast, Salary ROI, Bullet Optimizer, ATS Audit) gets its own full-screen canvas without tab clutter.
+- **Persistent Sticky Top Bar**: Keeps active resume filename and a clickable live fit score pill visible at all times, allowing instant return to Score Breakdown.
+- **Mobile Responsive Drawer**: Touch-optimized slide-out navigation sheet with backdrop blur for phone viewports.
 
 ---
 

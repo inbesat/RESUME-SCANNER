@@ -23,6 +23,9 @@ import {
   Zap,
   Flame,
   DollarSign,
+  PanelLeftClose,
+  Layout,
+  Layers,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -377,6 +380,57 @@ const GUIDE_FEATURES: GuideFeature[] = [
       ],
     },
   },
+  {
+    id: 'sidebar-studio',
+    category: 'superpowers',
+    icon: PanelLeftClose,
+    title: 'Modern SaaS Collapsible Studio Sidebar (Linear / Notion Style)',
+    badge: 'Desktop & Mobile UX',
+    summary: 'Full-height collapsible navigation studio that gives every AI superpower tool a dedicated full-screen workspace with zero tab clutter.',
+    steps: [
+      'Click the top toggle icon (or collapse sidebar) to switch between full sidebar (w-72) and compact icon rail (w-16).',
+      'Select any workspace: Score Overview, Auto-Fixer, Recruiter Roast, Salary ROI, Bullet Optimizer, Skill Simulator, or ATS Audit.',
+      'The persistent sticky top bar keeps your active resume name and live fit score pill visible at all times.',
+      'Click the live score pill anytime to jump straight back to your score breakdown.',
+      'On mobile devices, open the full navigation drawer via the top-left hamburger menu.',
+    ],
+    proTip: 'Collapsing the sidebar gives you an edge-to-edge full-screen canvas when editing A4 paper templates in the Auto-Fixer!',
+    mockup: {
+      type: 'presets',
+      previewTitle: '⚡ Collapsible Studio Rail + Full-Screen Workspaces',
+      previewBadges: ['Linear / Notion Style', 'Persistent Score Pill', 'Mobile Touch Drawer'],
+      previewDetails: [
+        'Left Sidebar: Categorized workspaces with live status pills',
+        'Top Header: File name badge + clickable 69% Match live score pill',
+        'Full-Screen Workspaces: Maximum desktop real-estate for deep editing',
+      ],
+    },
+  },
+  {
+    id: 'apple-3d-glass',
+    category: 'superpowers',
+    icon: Layers,
+    title: 'Apple Vision 3D Spatial Cards & Glassmorphism 2.0',
+    badge: 'ui-ux-pro-max Standard',
+    summary: 'Elevated spatial user experience featuring 1px top specular metallic light reflections, interactive 3D mouse-tilt with cursor glare, ambient floating auroras, and fluid spring micro-physics.',
+    steps: [
+      'Move your pointer across Role Presets, Copilot Tiles, and Certificate cards to feel the spring 3D perspective tilt.',
+      'Observe the dynamic cursor-tracking specular light reflection that follows your mouse across card surfaces.',
+      'Enjoy the soft floating neon ambient orbs that drift gently in the background with zero performance lag.',
+      'Watch fit score percentages and salary figures smoothly count up into place with spring deceleration.',
+    ],
+    proTip: 'All 3D tilt effects automatically detect touchscreens and mobile viewports to ensure battery efficiency and smooth 60fps scrolling!',
+    mockup: {
+      type: 'score',
+      previewTitle: '🍏 VisionOS Specular Frosted Glass + 3D Tilt',
+      previewBadges: ['1px Top Specular Rim', '3D Cursor Glare', 'Floating Auroras', 'Spring Count-Up'],
+      previewDetails: [
+        'border-t: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
+        'perspective(1000px) rotateX(...) rotateY(...) scale3d(1.02, 1.02, 1.02)',
+        'Live Glowing Neon Halo behind the Radial Fit Score Gauge',
+      ],
+    },
+  },
 ];
 
 export function AppGuide() {
@@ -637,10 +691,19 @@ export function AppGuide() {
 
           <div className="space-y-1.5 p-3.5 rounded-xl border border-border/60 bg-muted/20">
             <span className="font-semibold text-foreground block">
-              Q: How can I score 90%+ on any job description?
+              Q: What is the benefit of the Collapsible Left Sidebar Studio?
             </span>
             <p>
-              Use the <strong>What-If Skill Simulator</strong> to identify the top 2 Highest ROI missing skills, then use the <strong>Bullet Optimizer</strong> to craft XYZ-formula bullets for them.
+              It eliminates tab clutter by giving every AI tool (Auto-Fixer, Roast, Salary ROI, Bullet Optimizer) its own dedicated full-screen workspace, while keeping candidate context and a clickable live fit score pinned to the top.
+            </p>
+          </div>
+
+          <div className="space-y-1.5 p-3.5 rounded-xl border border-border/60 bg-muted/20">
+            <span className="font-semibold text-foreground block">
+              Q: How do the 3D Spatial Cards and Glassmorphism 2.0 work?
+            </span>
+            <p>
+              Built following Apple VisionOS and ui-ux-pro-max standards, cards feature 1px top specular metallic light reflections, interactive mouse-tilt with cursor glare, floating ambient gradient orbs, and fluid spring number count-up physics.
             </p>
           </div>
         </div>
