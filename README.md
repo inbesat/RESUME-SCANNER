@@ -74,19 +74,19 @@
 - Generates a tailored 3-paragraph Cover Letter and a **<120-word LinkedIn Recruiter Cold DM**.
 - Includes a ready-to-send **5-day post-application follow-up email** template with live editable textareas.
 
-### 7. 🚀 1-Click Sample Role Presets (Instant Demo)
+### 10. 🚀 1-Click Sample Role Presets (Instant Demo)
 - Built-in realistic presets for **Senior Frontend Engineer**, **AI/ML Engineer**, **Technical Product Manager**, and **Data Analyst / BI Engineer**.
 - Allows new users and mobile visitors to test drive the entire pipeline in under 1 second without uploading files.
 
-### 8. ⚖️ Zero-Bias Fairness & PII Anonymization Audit
+### 11. ⚖️ Zero-Bias Fairness & PII Anonymization Audit
 - Redacts candidate names, emails, phone numbers, universities, and graduation dates to re-score blindly, guaranteeing a 0% bias delta for ethical hiring compliance.
 
-### 9. 👥 Recruiter Mode (20-Candidate Bulk Leaderboard)
+### 12. 👥 Recruiter Mode (20-Candidate Bulk Leaderboard)
 - Ingests up to 20 candidate resumes in a single drag-and-drop batch.
 - Offers **Instant Local** (sub-second) vs. **Deep AI** scoring toggles.
 - Ranks candidates on a real-time leaderboard with gold/silver/bronze badges, candidate score drilldowns, and 1-click CSV export.
 
-### 10. 🎊 Milestone Celebration & Shareable Report Card
+### 13. 🎊 Milestone Celebration & Shareable Report Card
 - Zero-dependency canvas confetti burst and Web Audio synthesized chimes on scoring $\ge 80\%$.
 - Generates a glassmorphic report card with 1-click sharing to **X / Twitter**, **LinkedIn**, and **GitHub Markdown Shield Badges**.
 
@@ -99,9 +99,9 @@
 | **Framework** | [Next.js 16.3.3](https://nextjs.org/) (App Router, Turbopack) | Modern React 19 architecture with Server & Client components |
 | **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Strict type safety across parsers, scorers, and generators |
 | **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) & Radix UI | Dark/light glassmorphic UI with custom palette and micro-interactions |
-| **AI Inference** | [Groq SDK](https://groq.com/) (`llama-3.3-70b-versatile`) | Ultra-fast semantic analysis and generation (<500ms latency) |
+| **AI Inference** | [Groq SDK](https://groq.com/) & [Hugging Face](https://huggingface.co/) | Ultra-fast Llama 3.3 70B & Qwen 2.5 Inference (<500ms latency) |
 | **Document Parsers** | `unpdf` (WASM), `mammoth.js`, `tesseract.js` | Serverless-safe parsing for PDF, DOCX, TXT, PNG, and JPEG |
-| **Testing** | [Vitest](https://vitest.dev/) & [Playwright](https://playwright.dev/) | 20 unit tests + 4 end-to-end browser tests in headless Chromium |
+| **Testing** | [Vitest](https://vitest.dev/) & [Playwright](https://playwright.dev/) | 24 unit tests + 5 end-to-end browser tests in headless Chromium |
 
 ---
 
@@ -122,13 +122,16 @@ cd RESUME-SCANNER
 npm install
 ```
 
-### 3. Configure environment variables
+### 3. Configure environment variables (Optional)
 Create a `.env.local` file in the project root:
 ```env
 # Optional: Groq API key for Deep AI semantic scoring and generation.
-# If omitted, the app automatically runs on the offline deterministic local engine!
 GROQ_API_KEY=your_groq_api_key_here
+
+# Optional: Hugging Face API key for Llama-3.3-70B Inference.
+HUGGINGFACE_API_KEY=your_huggingface_token_here
 ```
+*(Note: If API keys are omitted, the app automatically and seamlessly runs on the built-in deterministic local rule-based engine with 100% functionality!)*
 
 ### 4. Run the development server
 ```bash
@@ -141,19 +144,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 🧪 Testing & Quality Assurance
 
 ### Run Unit Tests (Vitest)
-Executes all 20 unit tests covering parsers, deterministic scoring, ATS audits, and generator engines:
+Executes all 24 unit tests covering parsers, deterministic scoring, ATS audits, and generator engines:
 ```bash
 npm test
 ```
 
 ### Run End-to-End Browser Tests (Playwright)
-Launches headless Chromium, navigates landing page, tests 1-click presets, verifies scoring, tests all 6 copilot tools, recruiter mode, and the `/guide` page:
+Launches headless Chromium, navigates landing page, tests 1-click presets, verifies scoring, tests all copilot tools, recruiter mode, mobile emulation, and `/guide`:
 ```bash
 npm run test:e2e
 ```
 
 ### Run Production Build
-Validates TypeScript compilation and builds all 15 static and serverless dynamic routes:
+Validates TypeScript compilation and builds all 17 static and serverless dynamic routes:
 ```bash
 npm run build
 ```
@@ -171,12 +174,15 @@ resume-screener/
 │   │   ├── api/                   # Serverless API routes
 │   │   │   ├── bias-check/        # PII anonymization & fairness audit
 │   │   │   ├── bulk-score/        # Recruiter multi-candidate scoring
+│   │   │   ├── estimate-salary/   # 2026 tech compensation & missing skill ROI
 │   │   │   ├── export-pdf/        # PDF report generator
 │   │   │   ├── extract-keywords/  # AI keyword categorization
+│   │   │   ├── fix-resume/        # 1-Click Magic Resume Auto-Fixer
 │   │   │   ├── generate-outreach/ # Cover letter & LinkedIn DM generator
 │   │   │   ├── optimize-bullet/   # Google XYZ bullet optimizer
 │   │   │   ├── parse-resume/      # Multi-format document parser
 │   │   │   ├── predict-interview/ # STAR interview question predictor
+│   │   │   ├── roast-resume/      # Brutal FAANG Recruiter Roast & Mentor
 │   │   │   └── score-resume/      # 40/60 Hybrid fit scoring engine
 │   │   ├── app/                   # Main screener & copilot workspace
 │   │   │   └── page.tsx
@@ -193,7 +199,10 @@ resume-screener/
 │   │   ├── InterviewPredictor.tsx # STAR interview prep & cheat sheet
 │   │   ├── JobDescriptionInput.tsx# Keyword extraction & editor
 │   │   ├── RecruiterMode.tsx      # 20-candidate batch leaderboard
+│   │   ├── RecruiterRoast.tsx     # Brutal Recruiter Roast & Mentor mode
+│   │   ├── ResumeFixer.tsx        # 1-Click Magic Resume Auto-Fixer & Canvas
 │   │   ├── ResumeUploader.tsx     # Drag-and-drop multi-format uploader
+│   │   ├── SalaryEstimator.tsx    # Compensation & missing skill ROI estimator
 │   │   ├── SamplePresets.tsx      # 1-click role preset selector
 │   │   ├── ShareableReportCard.tsx# Confetti celebration & social share cards
 │   │   ├── SkillSimulator.tsx     # What-if skill addition simulator
