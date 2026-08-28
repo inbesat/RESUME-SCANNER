@@ -30,7 +30,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-function generatePDFContent(resume: ParsedResume, keywords: Keyword, scoreResult: ScoreResult): string {
+function generatePDFContent(resume: ParsedResume, keywords: Keyword[], scoreResult: ScoreResult): string {
   const date = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -38,18 +38,143 @@ function generatePDFContent(resume: ParsedResume, keywords: Keyword, scoreResult
   });
 
   const categoryConfig = {
-    technical: { label: 'Technical Skills', icon: '🔧' },
-    experience: { label: 'Experience', icon: '📋' },
-    education: { label: 'Education', icon: '🎓' },
-    softSkills: { label: 'Soft Skills', icon: '🤝' },
+    technical: { label: 'Technical Skills', icon: '[T]' },
+    experience: { label: 'Experience', icon: '[E]' },
+    education: { label: 'Education', icon: '[Ed]' },
+    softSkills: { label: 'Soft Skills', icon: '[S]' },
   } as const;
 
   const getScoreBar = (score: number, width = 200) => {
     const filled = Math.round((score / 100) * width);
-    return '█'.repeat(Math.max(0, filled / 5)) + '░'.repeat(Math.max(0, (width - filled) / 5));
+    const filledBlocks = Math.max(0, Math.round(filled / 5));
+    const emptyBlocks = Math.max(0, Math.round((width - filled) / 5));
+    return '#'.repeat(filledBlocks) + '-'.repeat(emptyBlocks);
   };
 
-  let pdf = `%PDF-1.4
+  // Escape special PDF characters in strings
+  const pdfEscape = (str: string) =>
+    str.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+
+  let contentStream = `BT
+/F1 24 Tf
+50 720 Td
+(AI Resume Screener - Fit Report) Tj
+ET
+
+BT
+/F1 12 Tf
+50 690 Td
+(Generated on ${pdfEscape(date)}) Tj
+ET
+
+BT
+/F1 12 Tf
+50 670 Td
+(Resume: ${pdfEscape(resume.fileName)} (${resume.fileType.toUpperCase()}, ${resume.wordCount} words)) Tj
+ET
+
+BT
+/F2 18 Tf
+50 630 Td
+(Overall Fit: ${scoreResult.fitPercentage}%) Tj
+ET
+
+BT
+/F1 10 Tf
+50 610 Td
+(Scorer: ${scoreResult.scorerUsed === 'hybrid' ? 'Hybrid (Local + AI)' : scoreResult.scorerUsed === 'ai' ? 'AI (Groq)' : 'Local Algorithm'}) Tj
+ET
+
+BT
+/F1 10 Tf
+50 590 Td
+(Processing Time: ${scoreResult.processingTime}ms) Tj
+ET
+
+BT
+/F1 10 Tf
+50 575 Td
+(Confidence: ${scoreResult.confidence || 'n/a'}${scoreResult.confidence === 'low' && scoreResult.confidenceReason ? ' - ' + pdfEscape(scoreResult.confidenceReason) : ''}) Tj
+ET
+
+BT
+/F1 14 Tf
+50 535 Td
+(Category Breakdown) Tj
+ET`;
+
+  let yPos = 515;
+  
+  Object.entries(scoreResult.breakdown).forEach(([key, category]) => {
+    const config = categoryConfig[key as keyof typeof categoryConfig];
+    const score = category.score;
+    
+    contentStream += `
+BT
+/F1 12 Tf
+50 ${yPos} Td
+(${config.icon} ${config.label}: ${score}%) Tj
+ET
+
+BT
+/F1 10 Tf
+70 ${yPos - 15} Td
+(Matched: ${category.matched.length} | Missing: ${category.missing.length}) Tj
+ET
+
+BT
+/F2 10 Tf
+70 ${yPos - 30} Td
+(${getScoreBar(score, 100)}) Tj
+ET`;
+
+    if (category.matched.length > 0) {
+      contentStream += `
+BT
+/F1 9 Tf
+70 ${yPos - 45} Td
+(Matched: ${pdfEscape(category.matched.slice(0, 8).join(', '))}${category.matched.length > 8 ? '...' : ''}) Tj
+ET`;
+      yPos -= 15;
+    }
+    
+    if (category.missing.length > 0) {
+      contentStream += `
+BT
+/F1 9 Tf
+70 ${yPos - 45} Td
+(Missing: ${pdfEscape(category.missing.slice(0, 8).join(', '))}${category.missing.length > 8 ? '...' : ''}) Tj
+ET`;
+      yPos -= 15;
+    }
+    
+    yPos -= 60;
+  });
+
+  if (scoreResult.suggestions.length > 0) {
+    yPos -= 20;
+    contentStream += `
+BT
+/F1 14 Tf
+50 ${yPos} Td
+(Suggestions) Tj
+ET`;
+    yPos -= 25;
+    
+    scoreResult.suggestions.forEach((suggestion, i) => {
+      contentStream += `
+BT
+/F1 10 Tf
+70 ${yPos} Td
+(${i + 1}. ${pdfEscape(suggestion)}) Tj
+ET`;
+      yPos -= 18;
+    });
+  }
+
+  const streamLength = contentStream.length;
+
+  const pdf = `%PDF-1.4
 1 0 obj
 <<
 /Type /Catalog
@@ -82,127 +207,10 @@ endobj
 
 4 0 obj
 <<
-/Length 5 0 R
+/Length ${streamLength}
 >>
 stream
-BT
-/F1 24 Tf
-50 720 Td
-(AI Resume Screener - Fit Report) Tj
-ET
-
-BT
-/F1 12 Tf
-50 690 Td
-(Generated on ${date}) Tj
-ET
-
-BT
-/F1 12 Tf
-50 670 Td
-(Resume: ${resume.fileName} (${resume.fileType.toUpperCase()}, ${resume.wordCount} words)) Tj
-ET
-
-BT
-/F2 18 Tf
-50 630 Td
-(Overall Fit: ${scoreResult.fitPercentage}%) Tj
-ET
-
-BT
-/F1 10 Tf
-50 610 Td
-(Scorer: ${scoreResult.scorerUsed === 'hybrid' ? 'Hybrid (Local + AI)' : scoreResult.scorerUsed === 'ai' ? 'AI (Groq)' : 'Local Algorithm'}) Tj
-ET
-
-BT
-/F1 10 Tf
-50 590 Td
-(Processing Time: ${scoreResult.processingTime}ms) Tj
-ET
-
-BT
-/F1 10 Tf
-50 575 Td
-(Confidence: ${scoreResult.confidence || 'n/a'}${scoreResult.confidence === 'low' && scoreResult.confidenceReason ? ' - ' + scoreResult.confidenceReason : ''}) Tj
-ET
-
-BT
-/F1 14 Tf
-50 535 Td
-(Category Breakdown) Tj
-ET`;
-
-  let yPos = 515;
-  
-  Object.entries(scoreResult.breakdown).forEach(([key, category]) => {
-    const config = categoryConfig[key as keyof typeof categoryConfig];
-    const score = category.score;
-    
-    pdf += `
-BT
-/F1 12 Tf
-50 ${yPos} Td
-(${config.icon} ${config.label}: ${score}%) Tj
-ET
-
-BT
-/F1 10 Tf
-70 ${yPos - 15} Td
-(Matched: ${category.matched.length} | Missing: ${category.missing.length}) Tj
-ET
-
-BT
-/F2 10 Tf
-70 ${yPos - 30} Td
-(${getScoreBar(score, 100)}) Tj
-ET`;
-
-    if (category.matched.length > 0) {
-      pdf += `
-BT
-/F1 9 Tf
-70 ${yPos - 45} Td
-(Matched: ${category.matched.slice(0, 8).join(', ')}${category.matched.length > 8 ? '...' : ''}) Tj
-ET`;
-      yPos -= 15;
-    }
-    
-    if (category.missing.length > 0) {
-      pdf += `
-BT
-/F1 9 Tf
-70 ${yPos - 45} Td
-(Missing: ${category.missing.slice(0, 8).join(', ')}${category.missing.length > 8 ? '...' : ''}) Tj
-ET`;
-      yPos -= 15;
-    }
-    
-    yPos -= 60;
-  });
-
-  if (scoreResult.suggestions.length > 0) {
-    yPos -= 20;
-    pdf += `
-BT
-/F1 14 Tf
-50 ${yPos} Td
-(Suggestions) Tj
-ET`;
-    yPos -= 25;
-    
-    scoreResult.suggestions.forEach((suggestion, i) => {
-      pdf += `
-BT
-/F1 10 Tf
-70 ${yPos} Td
-(${i + 1}. ${suggestion}) Tj
-ET`;
-      yPos -= 18;
-    });
-  }
-
-  pdf += `
+${contentStream}
 endstream
 endobj
 

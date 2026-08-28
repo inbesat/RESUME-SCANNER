@@ -1,9 +1,16 @@
 import { Keyword, KeywordCategory } from '@/types';
 import Groq from 'groq-sdk';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+let groq: Groq | null = null;
+
+function getGroq(): Groq {
+  if (!groq) {
+    groq = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+  }
+  return groq;
+}
 
 const MODEL = 'openai/gpt-oss-120b';
 
@@ -38,7 +45,7 @@ export async function extractKeywordsFromJD(jobDescription: string): Promise<Key
   const prompt = EXTRACTION_PROMPT.replace('{jobDescription}', jobDescription.slice(0, 6000));
   
   try {
-    const completion = await groq.chat.completions.create({
+    const completion = await getGroq().chat.completions.create({
       model: MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.2,

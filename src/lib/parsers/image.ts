@@ -1,26 +1,12 @@
 import { createWorker } from 'tesseract.js';
 import { ParsedResume } from '@/types';
-import path from 'path';
 
 let workerPromise: Promise<Awaited<ReturnType<typeof createWorker>>> | null = null;
 
 async function getWorker() {
   if (!workerPromise) {
-    const projectRoot = process.cwd();
-    const workerScript = path
-      .join(projectRoot, 'node_modules', 'tesseract.js', 'src', 'worker-script', 'node', 'index.js')
-      .replace(/\\/g, '/');
-    const coreFile = path
-      .join(projectRoot, 'node_modules', 'tesseract.js-core', 'tesseract-core-simd-lstm.wasm.js')
-      .replace(/\\/g, '/');
-    const langDir = path.join(projectRoot, 'node_modules', '@tesseract.js-data', 'eng', '4.0.0').replace(/\\/g, '/') + '/';
-
-    workerPromise = createWorker('eng', 1, {
-      workerPath: workerScript,
-      corePath: coreFile,
-      langPath: langDir,
-      gzip: false,
-    }).catch(err => {
+    // Use default CDN-based paths which work in all environments (local + Vercel)
+    workerPromise = createWorker('eng').catch(err => {
       workerPromise = null;
       throw err;
     });
