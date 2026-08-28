@@ -522,10 +522,86 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <section id="certificate">
+        <div className="wrap">
+          <div className="sec-head reveal">
+            <span className="sec-eyebrow">08 — Shareable Artifacts</span>
+            <h2>3D Holographic Certificates</h2>
+            <p>Prove your fit to recruiters with a verifiable, cryptographic-style badge and a stunning 3D holographic report card.</p>
+          </div>
+          <div className="feature-row reveal">
+            <div className="feature-text">
+              <span className="ftag">Bragging Rights</span>
+              <h3>Markdown badges &amp; Social Links</h3>
+              <ul>
+                <li><b>Dynamic Badges:</b> Generates a live GitHub-style markdown badge (e.g., 94% Match) for your portfolio or README.</li>
+                <li><b>Tactile 3D Cards:</b> Interactive, tilt-aware cards powered by device-orientation and pointer tracking.</li>
+                <li><b>Social Ready:</b> 1-click sharing to X (Twitter) and LinkedIn.</li>
+                <li><b>Verified Proof:</b> Cryptographically simulated verification stamps to prove your AI score wasn't faked.</li>
+              </ul>
+            </div>
+            <div className="feature-panel">
+              <div className="panel-bar"><span></span><span></span><span></span><div className="lbl">shareable-card.tsx</div></div>
+              <div className="panel-body">
+                <div style={{ padding: '1.5rem', background: 'var(--card-bg)', borderRadius: '1rem', border: '1px solid var(--border)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15), transparent 70%)', pointerEvents: 'none' }}></div>
+                  <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--foreground)', marginBottom: '0.5rem' }}>94% FIT</div>
+                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--success)' }}>Highly Qualified Candidate</div>
+                  <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', marginTop: '1.5rem' }}>
+                    <div style={{ padding: '0.25rem 0.75rem', background: 'rgba(255,255,255,0.1)', borderRadius: '999px', fontSize: '0.65rem', fontFamily: 'monospace' }}>✓ React</div>
+                    <div style={{ padding: '0.25rem 0.75rem', background: 'rgba(255,255,255,0.1)', borderRadius: '999px', fontSize: '0.65rem', fontFamily: 'monospace' }}>✓ TypeScript</div>
+                  </div>
+                  <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border)', paddingTop: '1rem', fontSize: '0.65rem', color: 'var(--muted)', fontFamily: 'monospace' }}>
+                    <span style={{ color: 'var(--primary)' }}>VERIFIED VIA AI SCREENER</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="workspace">
+        <div className="wrap">
+          <div className="sec-head reveal">
+            <span className="sec-eyebrow">09 — Pro Environment</span>
+            <h2>Collapsible Studio &amp; App Masterclass</h2>
+            <p>A professional-grade, distraction-free environment inspired by Apple VisionOS spatial design principles.</p>
+          </div>
+          <div className="feature-row rev reveal">
+            <div className="feature-text">
+              <span className="ftag">UI/UX Pro Max</span>
+              <h3>Focus on what matters</h3>
+              <ul>
+                <li><b>Collapsible Sidebar:</b> Maximize your canvas with a modern SaaS sidebar that gracefully tucks away.</li>
+                <li><b>Glassmorphism 2.0:</b> Specular highlights, frosted glass backdrops, and ambient light auroras.</li>
+                <li><b>Keyboard Driven:</b> Pro shortcuts (e.g., <code>Ctrl+B</code>) and escape-key handlers for power users.</li>
+                <li><b>Feature Masterclass:</b> A built-in, searchable guide containing 15+ deep-dives into every AI superpower.</li>
+              </ul>
+            </div>
+            <div className="feature-panel">
+              <div className="panel-bar"><span></span><span></span><span></span><div className="lbl">sidebar-studio.tsx</div></div>
+              <div className="panel-body" style={{ display: 'flex', gap: '0.5rem', height: '100%' }}>
+                <div style={{ width: '40px', background: 'rgba(0,0,0,0.2)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '0.5rem', borderRadius: '0.5rem 0 0 0.5rem' }}>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'var(--primary)', opacity: 0.8 }}></div>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)' }}></div>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)' }}></div>
+                </div>
+                <div style={{ flex: 1, padding: '1rem' }}>
+                  <div style={{ width: '60%', height: '8px', background: 'rgba(255,255,255,0.2)', borderRadius: '4px', marginBottom: '1rem' }}></div>
+                  <div style={{ width: '100%', height: '60px', background: 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', border: '1px solid var(--border)', marginBottom: '0.5rem' }}></div>
+                  <div style={{ width: '100%', height: '60px', background: 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', border: '1px solid var(--border)' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="stack">
         <div className="wrap">
           <div className="sec-head reveal">
-            <span className="sec-eyebrow">08 — Tech stack &amp; guardrails</span>
+            <span className="sec-eyebrow">10 — Tech stack &amp; guardrails</span>
             <h2>Built to fail loudly, not silently</h2>
             <p>Every AI call is optional infrastructure, not a dependency the app collapses without.</p>
           </div>
