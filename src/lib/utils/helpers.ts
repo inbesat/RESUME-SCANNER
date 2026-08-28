@@ -76,3 +76,24 @@ export function stemWord(word: string): string {
 export function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export async function parseApiResponse<T>(response: Response): Promise<{ success: boolean; data?: T; error?: string }> {
+  try {
+    const text = await response.text();
+    if (!text || text.trim().length === 0) {
+      return {
+        success: false,
+        error: response.ok
+          ? 'Server returned an empty response'
+          : `Server error (${response.status} ${response.statusText || 'Error'})`,
+      };
+    }
+    const json = JSON.parse(text);
+    return json;
+  } catch {
+    return {
+      success: false,
+      error: `Failed to parse response (${response.status}): ${response.statusText || 'Unexpected response format'}`,
+    };
+  }
+}

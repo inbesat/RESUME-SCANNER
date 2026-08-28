@@ -11,7 +11,7 @@ import { ScoreDisplay } from '@/components/ScoreDisplay';
 import { BiasCheck } from '@/components/BiasCheck';
 import { RecruiterMode } from '@/components/RecruiterMode';
 import ThemeToggle from '@/components/ThemeToggle';
-import { cn } from '@/lib/utils/helpers';
+import { cn, parseApiResponse } from '@/lib/utils/helpers';
 import { Keyword, ParsedResume, ScoreResult } from '@/types';
 
 const KEYWORDS_KEY = 'ars-keywords';
@@ -73,9 +73,9 @@ export default function AppPage() {
           keywords,
         }),
       });
-      const data = await response.json();
+      const data = await parseApiResponse<ScoreResult>(response);
       if (id !== requestIdRef.current) return;
-      if (!data.success) throw new Error(data.error || 'Scoring failed');
+      if (!data.success || !data.data) throw new Error(data.error || 'Scoring failed');
       setScoreResult(data.data);
     } catch (err) {
       if (id !== requestIdRef.current) return;
@@ -127,7 +127,15 @@ export default function AppPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ resume, keywords, scoreResult }),
       });
-      if (!response.ok) throw new Error('PDF export failed');
+      if (!response.ok) {
+        const text = await response.text();
+        try {
+          const json = JSON.parse(text);
+          throw new Error(json.error || 'PDF export failed');
+        } catch {
+          throw new Error(text || `PDF export failed (${response.status})`);
+        }
+      }
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');

@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Keyword } from '@/types';
-import { cn } from '@/lib/utils/helpers';
+import { cn, parseApiResponse } from '@/lib/utils/helpers';
 
 interface BulkCandidate {
   fileName: string;
@@ -91,8 +91,8 @@ export function RecruiterMode({ keywords, isLoading }: RecruiterModeProps) {
         body: formData,
       });
 
-      const data = await response.json();
-      if (!data.success) throw new Error(data.error);
+      const data = await parseApiResponse<{ results: BulkCandidate[] }>(response);
+      if (!data.success || !data.data) throw new Error(data.error || 'Bulk scoring failed');
       setResults(data.data.results);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Bulk scoring failed');

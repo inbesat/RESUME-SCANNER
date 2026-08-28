@@ -5,7 +5,7 @@ import { ShieldAlert, ShieldCheck, Loader2, RefreshCw, Gauge, Sparkles } from 'l
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Keyword } from '@/types';
-import { cn } from '@/lib/utils/helpers';
+import { cn, parseApiResponse } from '@/lib/utils/helpers';
 
 interface BiasCheckProps {
   resumeText: string;
@@ -33,6 +33,7 @@ export function BiasCheck({ resumeText, keywords }: BiasCheckProps) {
   const handleCheck = async () => {
     setIsChecking(true);
     setError(null);
+    setResult(null);
 
     try {
       const response = await fetch('/api/bias-check', {
@@ -41,8 +42,8 @@ export function BiasCheck({ resumeText, keywords }: BiasCheckProps) {
         body: JSON.stringify({ resumeText, keywords, mode }),
       });
 
-      const data = await response.json();
-      if (!data.success) throw new Error(data.error);
+      const data = await parseApiResponse<BiasResult>(response);
+      if (!data.success || !data.data) throw new Error(data.error || 'Bias check failed');
       setResult(data.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Bias check failed');

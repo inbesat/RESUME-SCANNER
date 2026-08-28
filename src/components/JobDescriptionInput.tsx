@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { KeywordEditor } from './KeywordEditor';
 import { Keyword } from '@/types';
-import { cn } from '@/lib/utils/helpers';
+import { cn, parseApiResponse } from '@/lib/utils/helpers';
 
 const JD_KEY = 'ars-job-description';
 
@@ -49,8 +49,8 @@ export function JobDescriptionInput({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jobDescription, manualKeywords: [] }),
       });
-      const result = await response.json();
-      if (!result.success) {
+      const result = await parseApiResponse<{ keywords: Keyword[]; jobDescription: string }>(response);
+      if (!result.success || !result.data) {
         throw new Error(result.error || 'Failed to extract keywords');
       }
       onKeywordsChange(result.data.keywords);

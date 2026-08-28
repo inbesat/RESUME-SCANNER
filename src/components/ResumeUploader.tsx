@@ -4,7 +4,7 @@ import { useState, useCallback, useRef } from 'react';
 import { Upload, FileText, X, CheckCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ParsedResume } from '@/types';
-import { validateFileType, formatFileSize } from '@/lib/utils/helpers';
+import { validateFileType, formatFileSize, parseApiResponse } from '@/lib/utils/helpers';
 import { cn } from '@/lib/utils/helpers';
 
 interface ResumeUploaderProps {
@@ -43,10 +43,10 @@ export function ResumeUploader({ onParseComplete, onError, onParseStart, isLoadi
       });
 
       setParseProgress(70);
-      const result = await response.json();
+      const result = await parseApiResponse<ParsedResume>(response);
 
-      if (!result.success) {
-        throw new Error(result.error);
+      if (!result.success || !result.data) {
+        throw new Error(result.error || 'Failed to parse resume');
       }
 
       setParseProgress(100);
