@@ -16,6 +16,7 @@ interface JobDescriptionInputProps {
   onKeywordsChange: (keywords: Keyword[]) => void;
   onExtractClick: () => void;
   onExtractError?: (error: string) => void;
+  onJobDescriptionChange?: (jd: string) => void;
 }
 
 export function JobDescriptionInput({
@@ -23,11 +24,13 @@ export function JobDescriptionInput({
   onKeywordsChange,
   onExtractClick,
   onExtractError,
+  onJobDescriptionChange,
 }: JobDescriptionInputProps) {
   const [jobDescription, setJobDescription] = useState(() => {
     if (typeof window === 'undefined') return '';
     try {
-      return sessionStorage.getItem(JD_KEY) || '';
+      const stored = sessionStorage.getItem(JD_KEY) || '';
+      return stored;
     } catch {
       return '';
     }
@@ -85,9 +88,11 @@ export function JobDescriptionInput({
         id="job-description"
         value={jobDescription}
         onChange={(e) => {
-          setJobDescription(e.target.value);
+          const val = e.target.value;
+          setJobDescription(val);
+          onJobDescriptionChange?.(val);
           try {
-            sessionStorage.setItem(JD_KEY, e.target.value);
+            sessionStorage.setItem(JD_KEY, val);
           } catch {
             // ignore storage errors
           }

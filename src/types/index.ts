@@ -69,3 +69,46 @@ export interface ScoreResumeRequest {
   resumeText: string;
   keywords: Keyword[];
 }
+
+// Phase 1 Superpowers Types
+export interface BulletSuggestion {
+  bullet: string;
+  metricUsed: string;
+  skillTargeted: string;
+  explanation: string;
+}
+
+export interface BulletOptimizationResult {
+  bullets: BulletSuggestion[];
+  keyword?: string;
+}
+
+export interface StarGuide {
+  situation: string;
+  task: string;
+  action: string;
+  result: string;
+}
+
+export interface InterviewQuestion {
+  id: string;
+  question: string;
+  category: 'technical' | 'experience' | 'behavioral' | 'gap';
+  whyAsked: string;
+  starGuide: StarGuide;
+  sampleAnswer: string;
+}
+
+export interface InterviewPrepResult {
+  questions: InterviewQuestion[];
+  candidateSummary: string;
+  keyStrengths: string[];
+  topGaps: string[];
+}
+
+export interface OutreachResult {
+  coverLetter: string;
+  linkedinDm: string;
+  followUpEmail: string;
+  keyStrengthsUsed: string[];
+}

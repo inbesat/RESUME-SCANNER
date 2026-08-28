@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils/helpers';
 interface ScoreDisplayProps {
   result: ScoreResult | null;
   onExportPDF?: () => void;
+  onOptimizeMissingSkill?: (skill: string) => void;
 }
 
 const CATEGORY_ICONS: Record<KeywordCategory, typeof Wrench> = {
@@ -29,7 +30,7 @@ const CATEGORY_CONFIG = {
   softSkills: { label: 'Soft Skills', color: 'orange' },
 } as const;
 
-export function ScoreDisplay({ result, onExportPDF }: ScoreDisplayProps) {
+export function ScoreDisplay({ result, onExportPDF, onOptimizeMissingSkill }: ScoreDisplayProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'details'>('overview');
 
   if (!result) {
@@ -158,7 +159,7 @@ export function ScoreDisplay({ result, onExportPDF }: ScoreDisplayProps) {
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'overview' | 'details')} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="details">Details</TabsTrigger>
+          <TabsTrigger value="details">Details & Evidence</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -254,12 +255,27 @@ export function ScoreDisplay({ result, onExportPDF }: ScoreDisplayProps) {
                       <h5 className="text-sm font-medium text-destructive mb-2 flex items-center gap-1">
                         <XCircle className="h-3.5 w-3.5" />
                         Missing ({category.missing.length})
+                        {onOptimizeMissingSkill && (
+                          <span className="text-[10px] text-muted-foreground font-normal ml-2">
+                            (click any skill to generate tailored bullets)
+                          </span>
+                        )}
                       </h5>
                       <div className="flex flex-wrap gap-1.5">
                         {category.missing.map((kw: string) => (
-                          <Badge key={kw} variant="destructive" className="text-xs">
+                          <button
+                            key={kw}
+                            type="button"
+                            onClick={() => onOptimizeMissingSkill?.(kw)}
+                            className={cn(
+                              'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold transition-all',
+                              'bg-destructive/15 text-destructive border border-destructive/30 hover:bg-destructive/25 hover:border-destructive/50 cursor-pointer'
+                            )}
+                            title={`Click to generate XYZ bullet for ${kw}`}
+                          >
+                            <Sparkles className="h-3 w-3 opacity-70" />
                             {kw}
-                          </Badge>
+                          </button>
                         ))}
                       </div>
                     </div>

@@ -95,11 +95,11 @@ export default function LandingPage() {
   }, []);
 
   const pipeline = [
-    { num: '01', title: 'Parse', desc: 'PDF, DOCX, TXT, PNG or JPEG in — OCR and text extraction run locally, offline.' },
-    { num: '02', title: 'Extract', desc: 'The job description is broken into required vs. preferred keywords, auto-categorized.' },
-    { num: '03', title: 'Score', desc: 'TF-IDF cosine similarity blends with AI semantic scoring for a weighted fit %.' },
-    { num: '04', title: 'De-bias', desc: 'Names, contacts and schools are anonymized, then re-scored to check the delta.' },
-    { num: '05', title: 'Report', desc: 'Evidence, confidence and suggestions are exported as PDF or CSV.' },
+    { num: '01', title: 'Parse & Audit', desc: 'PDF, DOCX, TXT, PNG or JPEG in — instant serverless extraction with automated ATS format audit.' },
+    { num: '02', title: 'Extract & Weigh', desc: 'The job description is broken into required vs. preferred keywords, auto-categorized.' },
+    { num: '03', title: 'Score & Simulate', desc: 'TF-IDF cosine similarity blends with AI semantic scoring, plus real-time what-if skill simulation.' },
+    { num: '04', title: 'Optimize & De-bias', desc: 'AI crafts XYZ-formula bullets for missing skills while anonymizing identity to check bias delta.' },
+    { num: '05', title: 'Interview & Report', desc: 'Predicted STAR interview questions, tailored cover letter/DM, and verified report export.' },
   ];
 
   return (
@@ -137,9 +137,9 @@ export default function LandingPage() {
           </div>
           <div className="hero-stats">
             <div className="hstat"><div className="n"><span className="u">40</span>/<span className="u">60</span></div><div className="l">local / AI blend</div></div>
-            <div className="hstat"><div className="n">10<span className="u">/10</span></div><div className="l">vitest tests passing</div></div>
-            <div className="hstat"><div className="n">20</div><div className="l">candidates per batch</div></div>
-            <div className="hstat"><div className="n">0</div><div className="l">lint errors</div></div>
+            <div className="hstat"><div className="n">20<span className="u">/20</span></div><div className="l">vitest tests passing</div></div>
+            <div className="hstat"><div className="n">6<span className="u">x</span></div><div className="l">AI Copilot Superpowers</div></div>
+            <div className="hstat"><div className="n">0</div><div className="l">DOM / Serverless errors</div></div>
           </div>
         </div>
 
