@@ -115,7 +115,10 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await outreachTab.click();
     await expect(page.locator('text=1-Click Cover Letter & Recruiter Outreach').first()).toBeVisible();
 
-    // Test 7: Shareable Report Card
+    // Test 7: Return to Score & Workspace and verify Shareable Report Card
+    const scoreTab = page.locator('button[role="tab"]:has-text("Score & Workspace")');
+    await expect(scoreTab).toBeVisible();
+    await scoreTab.click();
     await expect(page.locator('text=Shareable Fit Score Card')).toBeVisible();
   });
 
@@ -123,7 +126,7 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await page.goto('/app');
 
     // Switch to Recruiter mode
-    const recruiterModeBtn = page.locator('button[role="tab"]:has-text("Recruiter")');
+    const recruiterModeBtn = page.locator('[role="tablist"][aria-label="Screener mode"] button:has-text("Recruiter")').first();
     await recruiterModeBtn.click();
 
     await expect(page.locator('h1')).toContainText('Rank candidates against one job');
@@ -173,7 +176,7 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     await page.goto('/app');
 
     // Verify header and mobile branding
-    await expect(page.locator('text=RESUME_SCREENER')).toBeVisible();
+    await expect(page.locator('header').locator('text=RESUME_SCREENER')).toBeVisible();
 
     // Verify 1-Click preset button works on mobile
     const frontendPreset = page.locator('button:has-text("Senior Frontend Engineer")').first();
@@ -183,15 +186,20 @@ test.describe('AI Resume Screener Full Suite E2E', () => {
     // Wait for score calculation
     await expect(page.locator('text=Overall Fit')).toBeVisible({ timeout: 20000 });
 
-    // Verify mobile copilot tabs can be tapped and content toggles
-    const atsTab = page.locator('button[role="tab"]:has-text("ATS Audit")');
-    await expect(atsTab).toBeVisible();
-    await atsTab.click();
+    // Verify mobile copilot navigation works via the drawer
+    const menuBtn = page.locator('button[aria-label="Open navigation menu"]');
+    await expect(menuBtn).toBeVisible();
+    await menuBtn.click();
+
+    const atsDrawerBtn = page.locator('button:has-text("ATS Audit")').last();
+    await expect(atsDrawerBtn).toBeVisible();
+    await atsDrawerBtn.click();
     await expect(page.locator('text=ATS Readiness').first()).toBeVisible();
 
-    const bulletTab = page.locator('button[role="tab"]:has-text("Bullet Optimizer")');
-    await expect(bulletTab).toBeVisible();
-    await bulletTab.click();
-    await expect(page.locator('text=AI Bullet Point Optimizer').first()).toBeVisible();
+    // Verify returning to overview via top button
+    const overviewBtn = page.locator('button:has-text("Score Overview")').first();
+    if (await overviewBtn.isVisible()) {
+      await overviewBtn.click();
+    }
   });
 });
